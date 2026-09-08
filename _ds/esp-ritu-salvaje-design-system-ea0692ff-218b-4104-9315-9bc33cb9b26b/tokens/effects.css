@@ -1,0 +1,33 @@
+:root{
+/* radios — casi rectos: el libro es papel cortado, no app */
+--radius-none:0;
+--radius-hairline:2px;
+--radius-round:50%;
+
+--border-width:1px; /* @kind other */
+
+/* sombras: negro profundo + halo de sangre o de luz */
+--shadow-card:0 20px 60px rgba(0,0,0,.6),0 0 40px rgba(87,5,3,.2);
+--shadow-lift:0 10px 40px rgba(225,197,135,.3);
+--shadow-text-deep:0 4px 40px rgba(0,0,0,.7);
+--shadow-text-glow:0 0 60px rgba(225,197,135,.15);
+--shadow-ember:0 0 6px #E1C587;
+
+/* luz que nace de dentro */
+--glow-center:radial-gradient(circle,rgba(225,197,135,.12) 0%,transparent 60%); /* @kind color */
+--glow-wound:radial-gradient(circle,rgba(87,5,3,.2) 0%,transparent 70%); /* @kind color */
+--vignette:radial-gradient(ellipse at center,transparent 30%,rgba(6,16,3,.6) 100%); /* @kind color */
+--veil-top:linear-gradient(180deg,rgba(6,16,3,.9) 0%,transparent 100%); /* @kind color */
+--gradient-night:linear-gradient(180deg,#0A1808 0%,#132A10 50%,#061003 100%); /* @kind color */
+--gradient-wood:linear-gradient(180deg,#8B6237 0%,#5C3E20 60%,#3E2A15 100%); /* @kind color */
+--rule-gold:linear-gradient(90deg,transparent 0%,#E1C587 50%,transparent 100%); /* @kind color */
+--rule-blood:linear-gradient(90deg,transparent 0%,#570503 50%,transparent 100%); /* @kind color */
+--rule-vertical:linear-gradient(180deg,transparent,#E1C587,transparent); /* @kind color */
+
+--blur-veil:6px; /* @kind other */
+
+--ease:cubic-bezier(.4,0,.2,1); /* @kind other */
+--dur-fast:.3s; /* @kind other */
+--dur-mid:.4s; /* @kind other */
+--dur-slow:8s; /* @kind other */
+}

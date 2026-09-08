@@ -1,0 +1,48 @@
+:root{
+/* --- base palette --- */
+--green-700:#132A10; /* verde bosque profundo — fondo dominante */
+--green-800:#0A1808; /* noche */
+--green-900:#061003; /* noche cerrada */
+--green-400:#5E643E; /* verde apagado, follaje */
+--blood-900:#570503; /* sangre oscura */
+--blood-800:#6B0A08;
+--blood-600:#8B1810; /* sangre viva (solo gotas/hover) */
+--gold-400:#E1C587; /* dorado envejecido — luz */
+--gold-600:#8B6237; /* dorado en sombra (degradado madera) */
+--gold-700:#5C3E20;
+--gold-800:#3E2A15;
+--cream-100:#FDF3D0; /* pergamino */
+
+/* --- alphas sobre fondo verde --- */
+--cream-70:rgba(253,243,208,.7);
+--cream-50:rgba(253,243,208,.5);
+--gold-20:rgba(225,197,135,.2);
+--gold-12:rgba(225,197,135,.12);
+--gold-08:rgba(225,197,135,.08);
+--blood-20:rgba(87,5,3,.2);
+
+/* --- semantic --- */
+--bg-page:var(--green-700);
+--bg-deep:var(--green-800);
+--bg-night:var(--green-900);
+--surface-card:rgba(10,24,8,.9);
+--surface-veil:rgba(6,16,3,.9);
+
+--text-heading:var(--cream-100);
+--text-body:var(--cream-70);
+--text-muted:var(--cream-50);
+--text-accent:var(--gold-400);
+--text-on-gold:var(--green-700);
+
+--border-hairline:var(--gold-20);
+--border-strong:var(--gold-400);
+--rule-faint:var(--gold-12);
+
+--accent-primary:var(--gold-400);
+--accent-wound:var(--blood-900);
+--accent-foliage:var(--green-400);
+
+--glow-inner:var(--gold-12);
+--link:var(--gold-400);
+--link-hover:var(--cream-100);
+}
