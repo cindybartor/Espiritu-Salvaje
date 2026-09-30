@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -536,7 +535,7 @@ class Component extends DCLogic {
   state = { compact: false, mobile: false, intro: Component.firstVisit(), introFading: false, introSound: false, fragPlaying: true };
 
   static firstVisit() {
-    try { return !window.localStorage.getItem("es_intro_seen_v1"); } catch (e) { return false; }
+    return true;
   }
 
   // Scroll-driven CSS (animation-timeline: view()) only runs when the document
@@ -786,7 +785,6 @@ class Component extends DCLogic {
 
   endIntro = () => {
     if (this.state.introFading) return;
-    try { window.localStorage.setItem(Component.INTRO_KEY, "1"); } catch (e) {}
     this.setState({ introFading: true });
     this.introTimer = setTimeout(() => this.setState({ intro: false }), 950);
   };
