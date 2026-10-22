@@ -1,8 +1,7 @@
 ---
-/* #contacto: formulario que llega directamente al correo de la autora vía Netlify Forms
-   (sin backend: Netlify detecta el <form data-netlify> en el HTML estático y envía la
-   notificación al correo configurado en el panel de Netlify). Tras enviar, Netlify
-   redirige a /?enviado=1#contacto y src/scripts/contact.ts muestra el agradecimiento. */
+/* #contacto: formulario que llega directamente al correo de la autora. Lo procesa la
+   Cloudflare Pages Function functions/api/contacto.ts (envío por Resend) y la lógica
+   del lado del cliente está en src/scripts/contact.ts. */
 import Section from "../ds/Section.astro";
 import Eyebrow from "../ds/Eyebrow.astro";
 import SectionTitle from "../ds/SectionTitle.astro";
@@ -18,8 +17,7 @@ import { contacto } from "../../content/copy";
       <p class="intro">{contacto.intro}</p>
     </div>
 
-    <form name="contacto" method="POST" action="/?enviado=1#contacto" data-netlify="true" netlify-honeypot="bot-field" class="form" data-contact-form>
-      <input type="hidden" name="form-name" value="contacto" />
+    <form name="contacto" method="POST" action="/api/contacto" class="form" data-contact-form>
       <p class="hp" aria-hidden="true"><label>No rellenes este campo: <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
 
       <div class="row">
@@ -41,6 +39,7 @@ import { contacto } from "../../content/copy";
         <Button variant="outline" arrow type="submit">{contacto.submit}</Button>
         <span class="note">{contacto.note}</span>
       </div>
+      <p class="error" data-contact-error role="alert" hidden>{contacto.error}</p>
     </form>
 
     <p class="success" data-contact-success hidden>{contacto.success}</p>
@@ -86,4 +85,9 @@ import { contacto } from "../../content/copy";
     font-size: clamp(22px, 2.1vw, 28px); line-height: 1.5; color: var(--accent-primary);
   }
   .success[hidden] { display: none; }
+  .error {
+    margin: 0; font-family: var(--font-ui); font-weight: 300; font-size: var(--type-body); line-height: var(--lh-body);
+    color: var(--text-heading); border-left: 2px solid var(--accent-wound); padding-left: 16px;
+  }
+  .error[hidden] { display: none; }
 </style>

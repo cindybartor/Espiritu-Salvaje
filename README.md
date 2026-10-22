@@ -13,7 +13,8 @@ npm run build     # genera dist/
 npm run preview
 ```
 
-Netlify: `npm run build` → publica `dist/` (ver `netlify.toml`).
+Cloudflare Pages: build `npm run build`, salida `dist/`, variable `NODE_VERSION=22`. El formulario lo sirve la
+Pages Function `functions/api/contacto.ts` (Resend); secretos `RESEND_API_KEY`, `CONTACT_TO` y `CONTACT_FROM`.
 
 ## Dónde se edita cada cosa
 
@@ -29,7 +30,8 @@ Netlify: `npm run build` → publica `dist/` (ver `netlify.toml`).
 | `<head>` (meta, OG, JSON-LD)          | `src/layouts/Base.astro`                |
 | Interacciones                         | `src/scripts/` (intro, reveals, words, deal, para, trail, videos) |
 | Imágenes (se optimizan a WebP)        | `src/assets/uploads/`                   |
-| Vídeos y portada para Open Graph      | `public/uploads/`                       |
+| Vídeos, OG y favicon                  | `public/uploads/`, `public/`            |
+| Formulario de contacto (backend)      | `functions/api/contacto.ts`             |
 | Fuentes Fraunces y Renaissance        | `public/fonts/`                         |
 
 Las FAQ de `copy.ts` alimentan a la vez la sección y el JSON-LD `FAQPage`.
@@ -41,4 +43,4 @@ Las FAQ de `copy.ts` alimentan a la vez la sección y el JSON-LD `FAQPage`.
 - Las secciones recortan con `overflow: clip` y no con `overflow: hidden`: `hidden` crea un
   contenedor de scroll y desactiva `view()`; `clip` recorta sin crearlo.
 - Con `prefers-reduced-motion` se desactivan todas las animaciones y se muestra el estado final.
-- La intro se muestra en cada visita (como en el prototipo). Sin JavaScript no aparece.
+- La intro se muestra en cada visita (decisión de la autora). Sin JavaScript no aparece.

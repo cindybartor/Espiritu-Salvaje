@@ -253,6 +253,7 @@ export const contacto = {
   submit: "Enviar mensaje",
   note: "Tus datos sólo se usan para responderte.",
   success: "Gracias. Tu mensaje ya está en camino.",
+  error: "No se ha podido enviar el mensaje. Inténtalo de nuevo en un momento o escribe por Instagram.",
 };
 
 export const libertadCierre = {

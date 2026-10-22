@@ -1,8 +1,0 @@
-# Netlify: el sitio se construye con Astro y se publica la carpeta dist/.
-# Las cabeceras HTTP están en public/_headers (válido también para Cloudflare Pages).
-[build]
-  command = "npm run build"
-  publish = "dist"
-
-[build.environment]
-  NODE_VERSION = "22"
