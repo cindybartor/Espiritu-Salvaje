@@ -1,0 +1,84 @@
+---
+/* #autora: nombre gigante al fondo, texto en dos columnas con la foto en medio y una
+   rejilla de tres fotos debajo. */
+import { Image } from "astro:assets";
+import Section from "../ds/Section.astro";
+import Eyebrow from "../ds/Eyebrow.astro";
+import { autora } from "../../content/copy";
+import foto from "../../assets/uploads/foto-autora-web.png";
+import rojo1 from "../../assets/uploads/autora-rojo-1.png";
+import rojo2 from "../../assets/uploads/autora-rojo-2.png";
+import rojo3 from "../../assets/uploads/autora-rojo-3.png";
+const gallery = { "autora-rojo-1": rojo1, "autora-rojo-2": rojo2, "autora-rojo-3": rojo3 } as const;
+---
+<Section id="autora" tone="deep">
+  <div class="block" data-reveal="block">
+    <div class="bigname" aria-hidden="true">
+      <span class="n1">{autora.bigName[0]}</span>
+      <span class="n2">{autora.bigName[1]}</span>
+    </div>
+
+    <div class="content">
+      <Eyebrow>{autora.eyebrow}</Eyebrow>
+
+      <div class="cols">
+        <div class="col col-1">
+          {autora.columnLeftHtml.map((p) => <p set:html={p} />)}
+        </div>
+
+        <Image src={foto} alt={autora.photoAlt} widths={[400, 800, 1000]} sizes="(max-width: 760px) 92vw, 400px" format="webp" loading="lazy" class="photo" />
+
+        <div class="col col-2">
+          {autora.columnRightBefore.map((p) => <p>{p}</p>)}
+          <blockquote>{autora.quote}</blockquote>
+          {autora.columnRightAfter.map((p) => <p>{p}</p>)}
+        </div>
+      </div>
+
+      <div class="gallery" data-reveal="block">
+        {autora.gallery.map((g, i) => (
+          <Image src={gallery[g.image as keyof typeof gallery]} alt={g.alt} widths={[360, 720]} sizes="(max-width: 760px) 92vw, 360px" format="webp" loading="lazy" class:list={["g", { mid: i === 1 }]} />
+        ))}
+      </div>
+    </div>
+  </div>
+</Section>
+
+<style>
+  .block { position: relative; }
+  .bigname {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 100vw; display: flex; flex-direction: column; align-items: center;
+    pointer-events: none; user-select: none; z-index: 0;
+    font-family: var(--font-display); font-weight: 300; line-height: .82; letter-spacing: -.02em;
+    white-space: nowrap; color: var(--accent-primary); opacity: .11;
+  }
+  .n1 { font-size: 14.2vw; }
+  .n2 { font-size: 11vw; }
+
+  .content { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: clamp(40px, 6vw, 64px); }
+  .cols { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: clamp(24px, 3vw, 48px); width: 100%; }
+  .col {
+    min-width: 0; max-width: 380px; display: flex; flex-direction: column; gap: var(--space-5);
+    font-family: var(--font-ui); font-weight: 300; font-size: var(--type-body); line-height: var(--lh-body);
+    color: var(--text-body); text-wrap: pretty;
+  }
+  /* por debajo de 900px la primera columna ocupa todo el ancho */
+  .col-1 { flex: 1 1 max(200px, min(100%, (900px - 100vw) * 999)); }
+  .col-2 { flex: 1 1 260px; }
+  .col p { margin: 0; }
+  .col :global(strong) { font-weight: 400; color: var(--text-heading); }
+  .photo { flex: 0 1 400px; align-self: flex-start; width: 100%; max-width: 400px; height: auto; filter: drop-shadow(0 30px 60px rgba(4, 12, 2, .6)); }
+  blockquote {
+    margin: 0; font-family: var(--font-display); font-weight: 300; font-style: italic;
+    font-size: clamp(22px, 2.1vw, 28px); line-height: 1.45; color: var(--text-heading);
+  }
+
+  .gallery {
+    width: 100%; max-width: 1100px; margin-top: clamp(48px, 7vw, 96px);
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+    gap: clamp(14px, 2vw, 28px); align-items: start;
+  }
+  .g { display: block; width: 100%; height: 100%; aspect-ratio: 3 / 4; object-fit: cover; box-shadow: 0 30px 60px rgba(4, 12, 2, .55); }
+  .g.mid { margin-top: clamp(0px, 4vw, 56px); }
+</style>

@@ -1,0 +1,52 @@
+---
+/* Escenografía de la "noche oscura" (de NightBackdrop.jsx): bosque en degradado,
+   viñeta, sombras laterales, gotas de sangre y ascuas doradas. */
+interface Props { drops?: boolean; embers?: boolean; vignette?: boolean; sideShadows?: boolean }
+const { drops = true, embers = true, vignette = true, sideShadows = true } = Astro.props;
+const DROPS = [
+  { left: "12%", delay: "0s", dur: "12s" }, { left: "28%", delay: "4s", dur: "14s" },
+  { left: "44%", delay: "8s", dur: "10s" }, { left: "62%", delay: "2s", dur: "13s" },
+  { left: "78%", delay: "6s", dur: "11s" }, { left: "90%", delay: "10s", dur: "15s" },
+];
+const EMBERS = [
+  { left: "20%", delay: "0s", dur: "20s" }, { left: "40%", delay: "5s", dur: "25s" },
+  { left: "60%", delay: "10s", dur: "22s" }, { left: "75%", delay: "15s", dur: "18s" },
+];
+---
+<div class="night" aria-hidden="true">
+  <div class="forest"></div>
+  {sideShadows && <div class="shadow-l"></div>}
+  {sideShadows && <div class="shadow-r"></div>}
+  {vignette && <div class="vignette"></div>}
+  <div class="particles">
+    {drops && DROPS.map((d) => <span class="es-drop" style={`left:${d.left};animation-delay:${d.delay};animation-duration:${d.dur}`}></span>)}
+    {embers && EMBERS.map((e) => <span class="es-ember" style={`left:${e.left};animation-delay:${e.delay};animation-duration:${e.dur}`}></span>)}
+  </div>
+</div>
+
+<style>
+  .night { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+  .forest {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 40%, rgba(94, 100, 62, .25) 0%, transparent 50%),
+      radial-gradient(ellipse 40% 30% at 50% 50%, rgba(225, 197, 135, .15) 0%, transparent 60%),
+      var(--gradient-night);
+  }
+  .shadow-l { position: absolute; top: 0; bottom: 0; left: 0; width: 30%; background: radial-gradient(ellipse 70% 90% at 0% 70%, rgba(6, 16, 3, .95) 0%, transparent 60%); }
+  .shadow-r { position: absolute; top: 0; bottom: 0; right: 0; width: 30%; background: radial-gradient(ellipse 70% 90% at 100% 70%, rgba(6, 16, 3, .95) 0%, transparent 60%); }
+  .vignette { position: absolute; inset: 0; background: var(--vignette); }
+  .particles { position: absolute; inset: 0; overflow: hidden; }
+  .es-drop {
+    position: absolute; width: 4px; height: 30px; top: -60px;
+    border-radius: 0 0 50% 50%; opacity: .6; filter: blur(.3px);
+    background: linear-gradient(180deg, transparent 0%, var(--accent-wound) 50%, #8B1810 100%);
+    animation: esBloodDrip 12s ease-in infinite;
+  }
+  .es-ember {
+    position: absolute; bottom: 0; width: 3px; height: 3px; border-radius: 50%;
+    background: var(--accent-primary); box-shadow: var(--shadow-ember); opacity: 0;
+    animation: esFloatEmber 20s ease-in-out infinite;
+  }
+  @media (prefers-reduced-motion: reduce) { .es-drop, .es-ember { animation: none; opacity: .35; } }
+</style>

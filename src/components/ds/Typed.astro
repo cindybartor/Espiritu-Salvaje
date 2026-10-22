@@ -1,0 +1,36 @@
+---
+/* Líneas "mecanografiadas" de un titular: cada línea es un <span data-typed> con
+   esTypeIn en steps(n), n = nº de caracteres, ligado al scroll (animation-timeline: view()).
+   La última línea lleva el cursor parpadeante. Los rangos replican los del prototipo. */
+export interface TypedLine { text: string; accent?: boolean }
+interface Props {
+  lines: TypedLine[];
+  /** rango de entrada [desde%, hasta%] por línea; por defecto según nº de líneas */
+  ranges?: [number, number][];
+  center?: boolean;
+  /** peso de la línea acentuada (em dorado): 400 en #comprar, 300 en #libro */
+  accentWeight?: 300 | 400;
+}
+const { lines, center = false, accentWeight = 300 } = Astro.props;
+const defaults: Record<number, [number, number][]> = {
+  1: [[14, 56]],
+  2: [[14, 56], [52, 92]],
+  3: [[2, 34], [30, 62], [58, 88]],
+};
+const ranges = Astro.props.ranges ?? defaults[lines.length] ?? lines.map((_, i) => [i * 30, i * 30 + 32] as [number, number]);
+---
+{lines.map((line, i) => {
+  const [r0, r1] = ranges[i] ?? [14, 56];
+  const last = i === lines.length - 1;
+  return (
+    <span data-typed class:list={["typed", { center }]} style={`--n:${line.text.length};--r0:${r0}%;--r1:${r1}%`}>
+      {line.accent ? <em style={`font-weight:${accentWeight}`}>{line.text}</em> : line.text}
+      {last && <span class="es-caret" aria-hidden="true"></span>}
+    </span>
+  );
+})}
+
+<style>
+  .typed.center { margin-left: auto; margin-right: auto; }
+  .typed em { font-style: italic; color: var(--accent-primary); }
+</style>

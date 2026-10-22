@@ -1,0 +1,43 @@
+---
+/* #paraquien: "Este libro es para ti si…". Con JS el bloque se fija (sticky) y muestra
+   una frase cada vez con puntos indicadores (src/scripts/para.ts). Sin JS o con
+   movimiento reducido es una lista apilada. */
+import Section from "../ds/Section.astro";
+import Eyebrow from "../ds/Eyebrow.astro";
+import SectionTitle from "../ds/SectionTitle.astro";
+import { paraquien } from "../../content/copy";
+---
+<Section id="paraquien" tone="page" align="center" maxWidth="var(--measure-quote)">
+  <div class="root" data-para>
+    <div class="sticky" data-para-sticky>
+      <Eyebrow>{paraquien.eyebrow}</Eyebrow>
+      <div class="title">
+        <SectionTitle level={2} size="display-2" italic align="center">{paraquien.title}</SectionTitle>
+      </div>
+      <div class="stage">
+        <ul class="list" data-para-list>
+          {paraquien.items.map((t) => <li data-para-item>{t}</li>)}
+        </ul>
+        <div class="dots" data-para-dots aria-hidden="true">
+          {paraquien.items.map(() => <span data-para-dot></span>)}
+        </div>
+      </div>
+    </div>
+  </div>
+</Section>
+
+<style>
+  .root { position: relative; }
+  .sticky { display: flex; flex-direction: column; justify-content: center; gap: var(--space-7); }
+  .title { margin-bottom: clamp(16px, 3vw, 36px); }
+  .stage { position: relative; display: flex; align-items: center; justify-content: center; gap: clamp(20px, 4vw, 56px); }
+  .list { list-style: none; margin: 0; padding: 0; width: 100%; display: flex; flex-direction: column; gap: var(--space-6); }
+  .list li {
+    font-family: var(--font-display); font-weight: 300; font-style: italic;
+    font-size: clamp(24px, 3.4vw, 44px); line-height: 1.34; color: var(--text-heading);
+    text-wrap: pretty;
+    transition: opacity .4s ease, transform .4s cubic-bezier(.22, .78, .2, 1);
+  }
+  .dots { display: none; flex-direction: column; gap: 12px; flex: 0 0 auto; }
+  .dots span { display: block; width: 7px; height: 7px; border-radius: 50%; background: var(--accent-primary); transition: opacity .4s ease, transform .4s ease; }
+</style>

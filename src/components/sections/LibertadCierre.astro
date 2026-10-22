@@ -1,0 +1,27 @@
+---
+/* #libertad-cierre: dos párrafos palabra por palabra (130 ms): la jaula en crema cursiva
+   y la frase final en dorado. */
+import { libertadCierre as c } from "../../content/copy";
+const w1 = c.text1.split(" ");
+const w2 = c.text2.split(" ");
+---
+<section id="libertad-cierre" class="cierre" data-words data-word-ms={c.wordMs}>
+  <div class="content">
+    <p class="p1" aria-label={c.text1}>{w1.map((w) => <span aria-hidden="true" data-word>{w + " "}</span>)}</p>
+    <p class="p2" aria-label={c.text2}>{w2.map((w) => <span aria-hidden="true" data-word>{w + " "}</span>)}</p>
+  </div>
+</section>
+
+<style>
+  .cierre {
+    position: relative; display: flex; justify-content: center;
+    padding: clamp(80px, 12vw, 160px) clamp(24px, 6vw, 80px);
+    background: var(--bg-night);
+  }
+  .content { max-width: 860px; display: flex; flex-direction: column; gap: clamp(28px, 4vw, 44px); text-align: center; }
+  p { margin: 0; font-family: var(--font-display); font-weight: 300; text-shadow: 0 2px 18px rgba(0, 0, 0, .7); }
+  .p1 { font-style: italic; font-size: clamp(22px, 2.1vw, 28px); line-height: 1.6; color: var(--text-heading); text-wrap: pretty; }
+  .p2 { font-size: clamp(26px, 2.6vw, 34px); line-height: 1.4; color: var(--accent-primary); text-wrap: balance; }
+  [data-word] { opacity: 0; transition: opacity .5s ease; }
+  :global(html:not(.js)) [data-word], [data-word].on { opacity: 1; }
+</style>

@@ -1,0 +1,37 @@
+---
+/* Pie de página (de SiteFooter.jsx). */
+import { Image } from "astro:assets";
+import logo from "../../assets/uploads/logo-navbar-v2.png";
+import { footer, nav } from "../../content/site";
+---
+<footer class="es-footer">
+  <div class="mark">
+    <Image src={logo} alt={nav.logoAlt} width={302} densities={[1, 2]} format="webp" loading="lazy" class="logo" />
+  </div>
+  <div class="author">{footer.author}</div>
+  <div class="links">
+    {footer.links.map((l) => <a href={l.href} class="link" rel={l.href.startsWith("http") ? "noopener" : undefined}>{l.label}</a>)}
+  </div>
+  <div class="legal">{footer.legal}</div>
+</footer>
+
+<style>
+  .es-footer {
+    padding: 80px 40px 40px;
+    background: var(--bg-night);
+    text-align: center;
+    border-top: 1px solid rgba(225, 197, 135, .1);
+    font-family: var(--font-ui);
+  }
+  .mark { margin-bottom: 12px; }
+  .logo { display: block; height: clamp(38px, 6vw, 54px); width: auto; margin: 0 auto; }
+  .author { font-size: var(--type-label); color: var(--text-body); letter-spacing: 3px; margin-bottom: 40px; text-transform: uppercase; }
+  .links { display: flex; justify-content: center; gap: 40px; margin-bottom: 40px; flex-wrap: wrap; }
+  .link {
+    color: var(--text-body); text-decoration: none;
+    font-size: var(--type-eyebrow); letter-spacing: var(--track-nav); text-transform: uppercase;
+    transition: color var(--dur-fast) var(--ease);
+  }
+  .link:hover { color: var(--accent-primary); }
+  .legal { font-size: var(--type-fine); color: var(--text-muted); letter-spacing: 2px; line-height: 1.8; }
+</style>

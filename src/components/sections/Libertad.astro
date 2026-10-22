@@ -1,0 +1,33 @@
+---
+/* #libertad: vídeo a pantalla completa y el texto palabra por palabra (src/scripts/words.ts). */
+import { libertad } from "../../content/copy";
+const words = libertad.text.split(" ");
+---
+<section id="libertad" class="libertad" data-words data-word-ms={libertad.wordMs}>
+  <video data-src={libertad.video} muted loop playsinline preload="none" aria-hidden="true" data-loop></video>
+  <div class="v1" aria-hidden="true"></div>
+  <div class="v2" aria-hidden="true"></div>
+  <div class="content">
+    <p aria-label={libertad.text}>{words.map((w) => <span aria-hidden="true" data-word>{w + " "}</span>)}</p>
+  </div>
+</section>
+
+<style>
+  .libertad {
+    position: relative; overflow: hidden; min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    padding: clamp(80px, 12vw, 160px) clamp(24px, 6vw, 80px);
+    background: var(--bg-night);
+  }
+  video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .85; }
+  .v1 { position: absolute; inset: 0; background: radial-gradient(ellipse 75% 65% at 50% 50%, rgba(6, 16, 3, .78) 0%, rgba(6, 16, 3, .45) 60%, rgba(6, 16, 3, .2) 100%); }
+  .v2 { position: absolute; inset: 0; background: var(--vignette); opacity: .7; }
+  .content { position: relative; z-index: 1; max-width: 860px; display: flex; flex-direction: column; gap: clamp(28px, 4vw, 44px); text-align: center; }
+  p {
+    margin: 0; font-family: var(--font-display); font-weight: 300; font-style: italic;
+    font-size: clamp(26px, 2.6vw, 34px); line-height: 1.5; color: var(--text-heading);
+    text-wrap: pretty; text-shadow: 0 2px 18px rgba(0, 0, 0, .7);
+  }
+  [data-word] { opacity: 0; transition: opacity .5s ease; }
+  :global(html:not(.js)) [data-word], [data-word].on { opacity: 1; }
+</style>

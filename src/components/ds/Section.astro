@@ -1,0 +1,72 @@
+---
+/* Sección de página (de Section.jsx): ritmo vertical largo, brillo interior opcional.
+   `variant` recoge los ajustes de padding/forma que el prototipo aplicaba por sección:
+   - default    → clamp(100px,13vw,180px) vertical
+   - wide-arch  → #comprar: más alto, borde superior en arco sobre el hero
+   - moss       → #cuaderno: fondo musgo + arco
+   - moss-flat  → #resenas: fondo musgo sin arco
+   Se usa overflow: clip en vez de overflow: hidden: recorta (y evita que los halos de
+   800px ensanchen la página en móvil) sin crear un contenedor de scroll, así view() sigue vivo. */
+interface Props {
+  id?: string;
+  tone?: "page" | "deep" | "night" | "dawn";
+  glow?: "none" | "gold" | "wound";
+  align?: "left" | "center";
+  maxWidth?: string;
+  variant?: "default" | "wide-arch" | "moss" | "moss-flat";
+  class?: string;
+}
+const {
+  id,
+  tone = "page",
+  glow = "none",
+  align = "left",
+  maxWidth = "var(--measure-page)",
+  variant = "default",
+  class: className,
+} = Astro.props;
+---
+<section id={id} class:list={["es-section", `tone-${tone}`, `v-${variant}`, className]} data-align={align} style={`--max:${maxWidth}`}>
+  <slot name="bleed" />
+  {glow === "gold" && <div class="glow glow-gold" aria-hidden="true"></div>}
+  {glow === "wound" && <div class="glow glow-wound" aria-hidden="true"></div>}
+  <div class="inner"><slot /></div>
+</section>
+
+<style>
+  .es-section {
+    position: relative;
+    overflow: clip;
+    padding: clamp(100px, 13vw, 180px) var(--px);
+    background: var(--bg-page);
+    text-align: left;
+  }
+  .es-section[data-align="center"] { text-align: center; }
+  .tone-deep { background: var(--bg-deep); }
+  .tone-night { background: var(--bg-night); }
+  .tone-dawn { background: linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-page) 40%, var(--bg-night) 100%); }
+
+  .glow {
+    position: absolute; top: 50%; left: 50%;
+    width: 800px; height: 800px;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+  .glow-gold { background: var(--glow-center); }
+  .glow-wound { background: var(--glow-wound); opacity: .4; }
+
+  .inner { position: relative; z-index: 2; max-width: var(--max); margin-left: auto; margin-right: auto; }
+
+  .v-wide-arch,
+  .v-moss {
+    border-radius: 50% 50% 0 0 / clamp(28px, 5vw, 70px) clamp(28px, 5vw, 70px) 0 0;
+    border-top: 2px solid var(--accent-wound);
+    margin-top: clamp(-120px, -6vw, -40px);
+    z-index: 3;
+  }
+  .v-wide-arch { padding: clamp(120px, 15vw, 200px) var(--px); }
+  .v-moss,
+  .v-moss-flat {
+    background: linear-gradient(180deg, rgba(94, 100, 62, .55) 0%, rgba(94, 100, 62, .3) 100%), var(--bg-page);
+  }
+</style>

@@ -1,0 +1,36 @@
+---
+/* #libro: la portada a la izquierda y el texto a la derecha. */
+import { Image } from "astro:assets";
+import Section from "../ds/Section.astro";
+import Eyebrow from "../ds/Eyebrow.astro";
+import SectionTitle from "../ds/SectionTitle.astro";
+import Typed from "../ds/Typed.astro";
+import Prose from "../ds/Prose.astro";
+import LinkCta from "../ds/LinkCta.astro";
+import { libro } from "../../content/copy";
+import { AMAZON_URL } from "../../content/site";
+import cover from "../../assets/uploads/cover-hero-v5.png";
+---
+<Section id="libro" tone="deep" glow="wound">
+  <div class="block" data-reveal="block">
+    <div class="cover-col">
+      <Image src={cover} alt={libro.coverAlt} widths={[480, 960]} sizes="(max-width: 760px) 92vw, 480px" format="webp" loading="lazy" class="cover" />
+    </div>
+    <div class="text-col">
+      <Eyebrow align="left">{libro.eyebrow}</Eyebrow>
+      <SectionTitle level={2} size="display-2"><Typed lines={libro.titleLines} accentWeight={300} /></SectionTitle>
+      <Prose>
+        {libro.paragraphsHtml.map((p) => <p set:html={p} />)}
+      </Prose>
+      <div class="cta"><LinkCta href={AMAZON_URL}>{libro.cta}</LinkCta></div>
+    </div>
+  </div>
+</Section>
+
+<style>
+  .block { display: flex; flex-wrap: wrap; align-items: center; gap: clamp(48px, 7vw, 100px); }
+  .cover-col { flex: 1 1 336px; min-width: 0; max-width: 480px; margin: 0 auto; }
+  .cover { display: block; width: 100%; height: auto; filter: drop-shadow(0 30px 50px rgba(4, 12, 2, .62)) drop-shadow(0 0 40px rgba(87, 5, 3, .28)); }
+  .text-col { flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: var(--space-5); }
+  .cta { margin-top: var(--space-3); }
+</style>

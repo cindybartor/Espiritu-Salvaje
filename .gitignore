@@ -1,0 +1,24 @@
+# build output
+dist/
+# generated types
+.astro/
+# dependencies
+node_modules/
+# logs
+npm-debug.log*
+*.log
+# environment
+.env
+.env.*
+!.env.example
+# system
+.DS_Store
+Thumbs.db
+# handoff zip (the extracted folder is kept as design reference)
+*.zip
+
+# ferramentas locais e material de referência (fica só nesta máquina)
+.claude/
+
+# carpeta del handoff de diseno (empieza por #): solo en esta maquina
+/#*/

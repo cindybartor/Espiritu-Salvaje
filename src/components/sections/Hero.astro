@@ -1,0 +1,223 @@
+---
+/* #hero. Capas de abajo arriba: NightBackdrop → fondo botánico con viñeta → gotas, ascuas
+   y halo → vídeo de lianas (mix-blend-mode: screen) → velos oscuros → contenido. */
+import { Image, getImage } from "astro:assets";
+import NightBackdrop from "../ds/NightBackdrop.astro";
+import Eyebrow from "../ds/Eyebrow.astro";
+import Button from "../ds/Button.astro";
+import { hero } from "../../content/copy";
+import { AMAZON_URL } from "../../content/site";
+import botanico from "../../assets/uploads/fondo-botanico-web.png";
+import logoHero from "../../assets/uploads/logo-hero-v5.png";
+import cover from "../../assets/uploads/cover-hero-v5.png";
+import posterSrc from "../../assets/uploads/hero-vines-poster.png";
+
+const poster = await getImage({ src: posterSrc, format: "webp", width: 1280 });
+const VINES = "/uploads/magnific_camera-locked-completely-_p8CjHomehw.mp4";
+
+const DRIPS = [
+  { left: "12%", w: 2, h: 190, dur: "7s", delay: "0s" },
+  { left: "27%", w: 3, h: 260, dur: "9.5s", delay: "1.8s" },
+  { left: "54%", w: 2, h: 150, dur: "8s", delay: "3.4s" },
+  { left: "71%", w: 3, h: 300, dur: "11s", delay: ".9s" },
+  { left: "88%", w: 2, h: 210, dur: "8.6s", delay: "5.2s" },
+];
+const EMBERS = [
+  { left: "9%", s: 5, dx: 26, dur: "15s", delay: "0s" },
+  { left: "23%", s: 4, dx: -18, dur: "18s", delay: "2.5s" },
+  { left: "38%", s: 6, dx: 32, dur: "13s", delay: "5s" },
+  { left: "52%", s: 4, dx: -24, dur: "20s", delay: "1.2s" },
+  { left: "66%", s: 5, dx: 20, dur: "16s", delay: "7s" },
+  { left: "79%", s: 4, dx: -30, dur: "19s", delay: "3.8s" },
+  { left: "93%", s: 6, dx: 22, dur: "14s", delay: "9s" },
+];
+const BEADS = [
+  { left: "11.5%", top: "92%", dur: "2.8s", delay: "0s" },
+  { left: "22.8%", top: "90%", dur: "3.4s", delay: "1.3s" },
+  { left: "31.6%", top: "92%", dur: "3s", delay: "2.4s" },
+  { left: "44.6%", top: "91%", dur: "3.6s", delay: "0.6s" },
+  { left: "51.6%", top: "90%", dur: "3.2s", delay: "3.1s" },
+  { left: "63.2%", top: "89%", dur: "2.9s", delay: "1.8s" },
+  { left: "73.6%", top: "95%", dur: "3.7s", delay: "0.3s" },
+  { left: "80.4%", top: "90%", dur: "3.1s", delay: "2.7s" },
+  { left: "93%", top: "91%", dur: "3.3s", delay: "1.1s" },
+];
+---
+<section id="hero" class="hero">
+  <NightBackdrop />
+
+  <div class="bg" aria-hidden="true">
+    <Image src={botanico} alt={hero.botanicoAlt} widths={[640, 1024, 1296]} sizes="100vw" format="webp" loading="eager" fetchpriority="low" class="botanico" />
+    <div class="veil-vignette"></div>
+    <div class="veil-grad"></div>
+  </div>
+
+  <div class="fx" aria-hidden="true">
+    {DRIPS.map((d) => (
+      <>
+        <div class="drip" style={`left:${d.left};width:${d.w}px;height:${d.h}px;animation-duration:${d.dur};animation-delay:${d.delay}`}></div>
+        <div class="bead" style={`left:${d.left};--fall:${d.h}px;animation-duration:${d.dur};animation-delay:${d.delay}`}></div>
+      </>
+    ))}
+    {EMBERS.map((e) => (
+      <div class="ember" style={`left:${e.left};width:${e.s}px;height:${e.s}px;--dx:${e.dx}px;animation-duration:${e.dur};animation-delay:${e.delay}`}></div>
+    ))}
+    <div class="halo"></div>
+  </div>
+
+  <div class="vines" aria-hidden="true">
+    <video src={VINES} autoplay loop muted playsinline preload="auto" poster={poster.src} data-loop aria-hidden="true"></video>
+  </div>
+
+  <div class="veil veil-1" aria-hidden="true"></div>
+  <div class="veil veil-2" aria-hidden="true"></div>
+
+  <div class="content">
+    <div class="eyebrow-row">
+      <Eyebrow rules>{hero.eyebrow}</Eyebrow>
+    </div>
+
+    <div class="row">
+      <div class="col-text">
+        <div class="logo-fx" data-logo-fx>
+          <div class="logo-halo" aria-hidden="true"><div></div></div>
+          <div class="logo-beads" aria-hidden="true">
+            {BEADS.map((b) => <span style={`left:${b.left};top:${b.top};animation-duration:${b.dur};animation-delay:${b.delay}`}></span>)}
+          </div>
+          <Image src={logoHero} alt={hero.logoAlt} widths={[380, 760, 1140]} sizes="(max-width: 760px) 90vw, 380px" format="webp" loading="eager" fetchpriority="high" class="logo" />
+        </div>
+
+        <h1>{hero.title}</h1>
+        <p class="lede">{hero.text}</p>
+
+        <Button variant="outline" arrow href={AMAZON_URL}>{hero.cta}</Button>
+
+        <div class="formats">
+          <span>{hero.formats}</span>
+          <span class="kindle">{hero.kindle}</span>
+        </div>
+      </div>
+
+      <div class="col-cover">
+        <Image src={cover} alt={hero.coverAlt} widths={[480, 768, 1100]} sizes="(max-width: 760px) 92vw, 576px" format="webp" loading="eager" fetchpriority="high" class="cover" data-hero-cover />
+      </div>
+    </div>
+  </div>
+
+  <div class="hint" aria-hidden="true">{hero.scrollHint}</div>
+</section>
+
+<style>
+  .hero {
+    position: relative; min-height: 100svh;
+    display: flex; align-items: center; justify-content: center;
+    padding: clamp(130px, 20vw, 145px) clamp(24px, 4vw, 40px) clamp(80px, 10vw, 100px);
+    overflow: hidden;
+  }
+
+  /* fondo botánico */
+  .bg { position: absolute; inset: 0; z-index: 1; overflow: hidden; }
+  .botanico { position: absolute; left: 0; bottom: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 55%; opacity: .78; }
+  .veil-vignette { position: absolute; inset: 0; background: var(--vignette); pointer-events: none; }
+  .veil-grad { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(6, 16, 3, .58) 0%, rgba(6, 16, 3, .3) 45%, rgba(6, 16, 3, .86) 100%); pointer-events: none; }
+
+  /* gotas, ascuas y halo */
+  .fx { position: absolute; inset: 0; z-index: 3; pointer-events: none; overflow: hidden; }
+  .drip {
+    position: absolute; top: 0; transform-origin: top center;
+    background: linear-gradient(180deg, rgba(87, 5, 3, .95) 0%, rgba(87, 5, 3, .7) 55%, rgba(87, 5, 3, 0) 100%);
+    animation: esDrip 7s cubic-bezier(.33, .05, .5, 1) 0s infinite;
+  }
+  .bead {
+    position: absolute; top: 0; width: 5px; height: 5px; margin-left: -1.5px; border-radius: 50%;
+    background: radial-gradient(circle at 50% 40%, rgba(87, 5, 3, 1) 0%, rgba(87, 5, 3, .55) 58%, rgba(87, 5, 3, 0) 78%);
+    animation: esBead 7s cubic-bezier(.33, .05, .5, 1) 0s infinite;
+  }
+  .ember {
+    position: absolute; bottom: -10px; border-radius: 50%;
+    background: radial-gradient(circle at 50% 50%, rgba(214, 168, 92, .95) 0%, rgba(214, 168, 92, .45) 45%, rgba(214, 168, 92, 0) 72%);
+    animation: esEmber 15s linear 0s infinite;
+  }
+  .halo {
+    position: absolute; left: 50%; top: 62%;
+    width: min(62vw, 900px); height: min(62vw, 900px);
+    transform-origin: center; translate: -50% -50%; border-radius: 50%;
+    background: radial-gradient(circle at 50% 50%, rgba(214, 168, 92, .1) 0%, rgba(214, 168, 92, .04) 45%, rgba(214, 168, 92, 0) 70%);
+    animation: esBreathe 11s ease-in-out infinite;
+  }
+
+  /* lianas */
+  .vines { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 4; pointer-events: none; mix-blend-mode: screen; }
+  .vines video {
+    position: absolute; top: -3%; left: -13%; width: 118%; height: 106%;
+    object-fit: cover; object-position: left center; filter: blur(7px);
+  }
+  @media (max-width: 760px) {
+    /* En móvil se hace zoom al dosel: las lianas y el tronco comparten la misma banda horizontal. */
+    .vines video {
+      top: 0; left: 0; width: 100%; height: 100%;
+      object-position: 20% 10%; transform: scale(1.6); transform-origin: 22% 12%; filter: blur(5px);
+    }
+  }
+
+  /* velos */
+  .veil { position: absolute; inset: 0; z-index: 5; pointer-events: none; }
+  .veil-1 { background: linear-gradient(90deg, rgba(6, 16, 3, .74) 0%, rgba(6, 16, 3, .58) 34%, rgba(6, 16, 3, .42) 68%, rgba(6, 16, 3, .5) 100%); }
+  .veil-2 { background: radial-gradient(ellipse 62% 54% at 32% 52%, rgba(6, 16, 3, .5) 0%, rgba(6, 16, 3, .18) 60%, rgba(6, 16, 3, 0) 100%); }
+
+  /* contenido */
+  .content { position: relative; width: 100%; max-width: 1180px; display: flex; flex-direction: column; gap: clamp(18px, 2.6vw, 28px); }
+  .eyebrow-row { position: relative; z-index: 10; width: 100%; text-align: center; }
+  .row { display: flex; flex-wrap: wrap; align-items: center; gap: clamp(40px, 6vw, 80px); }
+  .col-text { position: relative; z-index: 10; flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; text-align: left; }
+  .col-cover { position: relative; z-index: 10; flex: 1 1 340px; min-width: 0; display: flex; justify-content: center; }
+
+  .logo-fx { position: relative; margin: 0 0 clamp(14px, 2vw, 22px); max-width: 380px; }
+  .logo-halo { position: absolute; left: 50%; top: 50%; width: 150%; height: 190%; transform: translate(-50%, -50%); pointer-events: none; z-index: 0; }
+  .logo-halo > div {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 50% 42% at 50% 50%, rgba(236, 196, 120, .55) 0%, rgba(214, 168, 92, .26) 38%, rgba(214, 168, 92, 0) 72%);
+    animation: esBreathe 7s ease-in-out infinite;
+  }
+  .logo-beads { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+  .logo-beads span {
+    position: absolute; width: 5px; height: 7px; margin-left: -2.5px;
+    border-radius: 50% 50% 50% 50% / 62% 62% 38% 38%;
+    background: radial-gradient(circle at 40% 35%, rgba(200, 40, 30, 1) 0%, rgba(120, 8, 6, 1) 55%, rgba(70, 2, 2, 1) 100%);
+    box-shadow: 0 0 3px rgba(120, 8, 6, .6);
+    --fall: clamp(38px, 6vw, 70px);
+    animation: esBead 3s cubic-bezier(.55, 0, .9, .5) 0s infinite both;
+  }
+  .logo { position: relative; z-index: 1; display: block; width: 100%; max-width: 380px; height: auto; margin: 0; filter: drop-shadow(0 8px 30px rgba(0, 0, 0, .65)); }
+
+  h1 {
+    margin: 0 0 clamp(10px, 1.4vw, 16px); max-width: 30ch;
+    font-family: var(--font-display); font-weight: 300; font-style: italic;
+    font-size: clamp(22px, 2.1vw, 28px); line-height: 1.5;
+    color: var(--text-heading); opacity: .9; text-wrap: pretty;
+  }
+  .lede {
+    margin: 0 0 clamp(20px, 2.8vw, 30px); max-width: 46ch;
+    font-family: var(--font-display); font-weight: 300; font-style: italic;
+    font-size: clamp(19px, 1.6vw, 25px); line-height: 1.7;
+    color: var(--text-body); text-wrap: pretty;
+  }
+  .formats {
+    margin-top: clamp(22px, 3vw, 34px); display: flex; flex-direction: column; gap: 8px;
+    font-size: 13px; letter-spacing: .27em; color: var(--text-muted); text-transform: uppercase;
+  }
+  .kindle { color: var(--accent-primary); opacity: .85; }
+
+  .cover {
+    display: block; width: 100%; max-width: 576px; height: auto;
+    filter: drop-shadow(0 34px 68px rgba(0, 0, 0, .72));
+    animation: esCoverDrift 16s ease-in-out infinite; will-change: transform;
+  }
+
+  .hint {
+    position: absolute; bottom: 32px; left: 50%; z-index: 10;
+    color: var(--accent-primary); font-size: 12px; letter-spacing: .4em; text-transform: uppercase;
+    white-space: nowrap; opacity: .85; animation: esFadeUpDown 3s ease-in-out infinite;
+  }
+  @media (prefers-reduced-motion: reduce) { .cover, .logo-fx * { animation: none !important; } }
+</style>

@@ -1,0 +1,45 @@
+---
+/* #cuaderno: tres versos de tres edades, sobre fondo musgo con el borde superior en arco. */
+import Section from "../ds/Section.astro";
+import Eyebrow from "../ds/Eyebrow.astro";
+import SectionTitle from "../ds/SectionTitle.astro";
+import Typed from "../ds/Typed.astro";
+import { cuaderno } from "../../content/copy";
+const RANGES: [number, number][] = [[5, 76], [16, 88], [27, 99]];
+---
+<Section id="cuaderno" tone="page" align="center" variant="moss">
+  <div class="block" data-reveal="block">
+    <Eyebrow>{cuaderno.eyebrow}</Eyebrow>
+    <SectionTitle level={2} size="display-2" italic align="center"><Typed lines={cuaderno.titleLines} center /></SectionTitle>
+
+    <div class="grid">
+      {cuaderno.verses.map((v, i) => (
+        <figure data-reveal="lift" style={`--r0:${RANGES[i][0]}%;--r1:${RANGES[i][1]}%`}>
+          <div class="star" aria-hidden="true">✦</div>
+          <figcaption>{v.stage}</figcaption>
+          <p>{v.text}</p>
+          <div class="source">{v.source}</div>
+        </figure>
+      ))}
+    </div>
+  </div>
+</Section>
+
+<style>
+  .block { display: flex; flex-direction: column; align-items: center; gap: clamp(40px, 6vw, 64px); }
+  .grid { display: flex; flex-wrap: wrap; gap: clamp(24px, 4vw, 40px); width: 100%; justify-content: center; }
+  figure {
+    flex: 1 1 240px; min-width: 0; max-width: 360px; margin: 0;
+    display: flex; flex-direction: column; align-items: center; gap: var(--space-5);
+    padding: clamp(32px, 5vw, 48px) var(--space-6);
+    border: 1px dashed var(--border-hairline); border-top: 2px solid var(--accent-wound);
+    background: rgba(6, 16, 3, .35); text-align: center;
+  }
+  .star { font-family: var(--font-display); font-size: 18px; letter-spacing: 12px; color: var(--accent-primary); opacity: .5; }
+  figcaption { font-family: var(--font-ui); font-size: 13px; letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--accent-primary); opacity: .7; }
+  p {
+    margin: 0; font-family: var(--font-display); font-weight: 300; font-style: italic;
+    font-size: clamp(19px, 1.6vw, 25px); line-height: 1.7; color: var(--text-body); text-wrap: pretty;
+  }
+  .source { font-family: var(--font-ui); font-weight: 300; font-size: 13px; letter-spacing: .16em; text-transform: uppercase; color: var(--accent-primary); opacity: .85; }
+</style>

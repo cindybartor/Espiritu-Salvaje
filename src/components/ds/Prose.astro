@@ -1,0 +1,20 @@
+---
+/* Cuerpo de texto largo (de Prose.jsx): Inter 300 con interlínea 1.9.
+   <strong> dorado, <em> crema cursiva. Los párrafos llegan por el slot. */
+interface Props { class?: string }
+const { class: className } = Astro.props;
+---
+<div class:list={["es-prose", className]}><slot /></div>
+
+<style>
+  .es-prose {
+    font-family: var(--font-ui); font-weight: 300;
+    font-size: var(--type-body); line-height: var(--lh-body);
+    color: var(--text-body);
+    display: flex; flex-direction: column; gap: 24px;
+    text-wrap: pretty;
+  }
+  .es-prose :global(p) { margin: 0; font-size: var(--type-body); }
+  .es-prose :global(strong) { color: var(--accent-primary); font-weight: 400; }
+  .es-prose :global(em) { color: var(--text-heading); font-style: italic; }
+</style>

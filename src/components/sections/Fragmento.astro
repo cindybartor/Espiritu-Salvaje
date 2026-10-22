@@ -1,0 +1,45 @@
+---
+/* #fragmento: vídeo de fondo a sangre con tres velos, botón de play/pausa y la cita. */
+import Section from "../ds/Section.astro";
+import Ornament from "../ds/Ornament.astro";
+import QuoteBlock from "../ds/QuoteBlock.astro";
+import { fragmento } from "../../content/copy";
+---
+<Section id="fragmento" tone="deep" align="center" maxWidth="var(--measure-quote)">
+  <Fragment slot="bleed">
+    <div class="layer" aria-hidden="true">
+      <video data-src={fragmento.video} muted loop playsinline preload="none" aria-hidden="true" data-loop data-frag-video></video>
+      <div class="v1"></div>
+      <div class="v2"></div>
+      <div class="v3"></div>
+    </div>
+    <div class="controls">
+      <button type="button" data-frag-toggle data-label-pause={fragmento.pause} data-label-play={fragmento.play} aria-label={fragmento.pause} title={fragmento.pause}>❙❙</button>
+    </div>
+  </Fragment>
+
+  <div class="block" data-reveal="block">
+    <Ornament variant="vertical" />
+    <QuoteBlock ornaments attribution={fragmento.attribution}>{fragmento.quote}</QuoteBlock>
+    <Ornament variant="vertical" />
+  </div>
+</Section>
+
+<style>
+  .layer { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+  video { position: absolute; top: 50%; left: 50%; width: 100%; height: 100%; transform: translate(-50%, -50%); object-fit: cover; opacity: .82; }
+  .v1 { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(6, 16, 3, .5) 0%, rgba(6, 16, 3, .26) 45%, rgba(6, 16, 3, .58) 100%); }
+  .v2 { position: absolute; inset: 0; background: radial-gradient(ellipse 70% 58% at 50% 50%, rgba(6, 16, 3, .78) 0%, rgba(6, 16, 3, .34) 55%, rgba(6, 16, 3, .1) 100%); }
+  .v3 { position: absolute; inset: 0; background: var(--vignette); opacity: .7; }
+
+  .controls { position: absolute; top: clamp(20px, 3vw, 36px); left: clamp(20px, 4vw, 40px); z-index: 5; display: flex; gap: 8px; }
+  .controls button {
+    width: 44px; height: 44px; display: grid; place-items: center;
+    border: 1px solid var(--border-strong); background: rgba(6, 16, 3, .6);
+    color: var(--accent-primary); font-family: var(--font-ui); font-size: 13px; line-height: 1; cursor: pointer;
+    transition: border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
+  }
+  .controls button:hover { border-color: var(--accent-primary); background: rgba(6, 16, 3, .85); }
+
+  .block { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: clamp(28px, 5vw, 40px); }
+</style>
