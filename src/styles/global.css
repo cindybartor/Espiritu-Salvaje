@@ -98,10 +98,10 @@ html:not(.js) .es-intro, html:not(.js) .es-trail { display: none !important; }
   position: absolute; width: var(--corner, 72px); aspect-ratio: 1; pointer-events: none; z-index: 3;
   background: url("/ornaments/corner.webp") center / contain no-repeat; opacity: .92;
 }
-.es-corners > .corner.tl { top: -3px; left: -3px; }
-.es-corners > .corner.tr { top: -3px; right: -3px; transform: scaleX(-1); }
-.es-corners > .corner.bl { bottom: -3px; left: -3px; transform: scaleY(-1); }
-.es-corners > .corner.br { bottom: -3px; right: -3px; transform: scale(-1); }
+.es-corners > .corner.tl { top: -3px; left: -3px; transform: scaleY(-1); }
+.es-corners > .corner.tr { top: -3px; right: -3px; transform: scale(-1); }
+.es-corners > .corner.bl { bottom: -3px; left: -3px; }
+.es-corners > .corner.br { bottom: -3px; right: -3px; transform: scaleX(-1); }
 /* Capitular en Renaissance para el primer párrafo de un bloque de prosa. */
 .es-dropcap > p:first-of-type::first-letter {
   float: left; font-family: var(--font-ornament); font-weight: 400; font-style: normal;
