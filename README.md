@@ -14,7 +14,8 @@ npm run preview
 ```
 
 Cloudflare Pages: build `npm run build`, salida `dist/`, variable `NODE_VERSION=22`. El formulario lo sirve la
-Pages Function `functions/api/contacto.ts` (Resend); secretos `RESEND_API_KEY`, `CONTACT_TO` y `CONTACT_FROM`.
+Pages Function `functions/api/contacto.ts` vía Web3Forms (gratuito); único secreto: `WEB3FORMS_KEY`,
+obtenido en web3forms.com con el Gmail del libro (las entregas llegan a ese correo).
 
 ## Dónde se edita cada cosa
 
