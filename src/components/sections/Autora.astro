@@ -4,6 +4,8 @@
 import { Image } from "astro:assets";
 import Section from "../ds/Section.astro";
 import Eyebrow from "../ds/Eyebrow.astro";
+import Flourish from "../ds/Flourish.astro";
+import botanico from "../../assets/uploads/fondo-botanico-web.png";
 import { autora } from "../../content/copy";
 import foto from "../../assets/uploads/foto-autora-web.png";
 import rojo1 from "../../assets/uploads/autora-rojo-1.png";
@@ -12,6 +14,10 @@ import rojo3 from "../../assets/uploads/autora-rojo-3.png";
 const gallery = { "autora-rojo-1": rojo1, "autora-rojo-2": rojo2, "autora-rojo-3": rojo3 } as const;
 ---
 <Section id="autora" tone="deep">
+  <div slot="bleed" class="bg" aria-hidden="true">
+    <Image src={botanico} alt="" widths={[1024, 1600]} sizes="100vw" format="webp" loading="lazy" class="bg-img" />
+    <div class="bg-veil"></div>
+  </div>
   <div class="block" data-reveal="block">
     <div class="bigname" aria-hidden="true">
       <span class="n1">{autora.bigName[0]}</span>
@@ -20,6 +26,7 @@ const gallery = { "autora-rojo-1": rojo1, "autora-rojo-2": rojo2, "autora-rojo-3
 
     <div class="content">
       <Eyebrow>{autora.eyebrow}</Eyebrow>
+      <Flourish class="fl" />
 
       <div class="cols">
         <div class="col col-1">
@@ -37,7 +44,9 @@ const gallery = { "autora-rojo-1": rojo1, "autora-rojo-2": rojo2, "autora-rojo-3
 
       <div class="gallery" data-reveal="block">
         {autora.gallery.map((g, i) => (
-          <Image src={gallery[g.image as keyof typeof gallery]} alt={g.alt} widths={[360, 720]} sizes="(max-width: 760px) 92vw, 360px" format="webp" loading="lazy" class:list={["g", { mid: i === 1 }]} />
+          <div class:list={["g-frame", { mid: i === 1 }]}>
+            <Image src={gallery[g.image as keyof typeof gallery]} alt={g.alt} widths={[360, 720]} sizes="(max-width: 760px) 92vw, 360px" format="webp" loading="lazy" class="g es-grade" />
+          </div>
         ))}
       </div>
     </div>
@@ -79,6 +88,13 @@ const gallery = { "autora-rojo-1": rojo1, "autora-rojo-2": rojo2, "autora-rojo-3
     display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
     gap: clamp(14px, 2vw, 28px); align-items: start;
   }
-  .g { display: block; width: 100%; height: 100%; aspect-ratio: 3 / 4; object-fit: cover; box-shadow: 0 30px 60px rgba(4, 12, 2, .55); }
-  .g.mid { margin-top: clamp(0px, 4vw, 56px); }
+  .g-frame { position: relative; padding: 10px; border: 1px solid var(--border-hairline); border-radius: 999px 999px 0 0 / 56% 56% 0 0; box-shadow: 0 30px 60px rgba(4, 12, 2, .55); background: rgba(6, 16, 3, .35); }
+  .g-frame::after { content: ""; position: absolute; inset: 4px; border: 1px solid var(--rule-faint); border-radius: inherit; pointer-events: none; }
+  .g-frame.mid { margin-top: clamp(0px, 4vw, 56px); border-radius: 50% / 50%; }
+  .g { display: block; width: 100%; height: 100%; aspect-ratio: 3 / 4; object-fit: cover; border-radius: inherit; }
+  .g-frame.mid .g { border-radius: 50% / 50%; }
+  .bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+  .bg-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 40%; opacity: .16; filter: saturate(.7); }
+  .bg-veil { position: absolute; inset: 0; background: radial-gradient(ellipse 70% 60% at 50% 45%, transparent 20%, var(--bg-deep) 95%), linear-gradient(180deg, var(--bg-deep) 0%, transparent 25%, transparent 75%, var(--bg-deep) 100%); }
+  .content :global(.fl) { margin: calc(-1 * clamp(20px, 4vw, 40px)) auto; }
 </style>

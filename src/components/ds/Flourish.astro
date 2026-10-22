@@ -1,0 +1,14 @@
+---
+/* Divisor ornamental: filigrana dorada generada (fondo negro) fundida con mix-blend-mode: screen,
+   así el negro desaparece sobre los verdes y el oro queda nítido. */
+interface Props { width?: string; class?: string; opacity?: number }
+const { width = "clamp(240px, 40vw, 520px)", class: className, opacity = 0.9 } = Astro.props;
+---
+<div class:list={["es-flourish", className]} aria-hidden="true" style={`width:${width};opacity:${opacity}`}>
+  <img src="/ornaments/divider.webp" alt="" width="1400" height="150" loading="lazy" decoding="async" />
+</div>
+
+<style>
+  .es-flourish { margin: 0 auto; pointer-events: none; }
+  .es-flourish img { display: block; width: 100%; height: auto; filter: saturate(.85) brightness(1.05); }
+</style>

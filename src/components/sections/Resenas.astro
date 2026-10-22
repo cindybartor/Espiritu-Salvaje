@@ -5,18 +5,22 @@ import Eyebrow from "../ds/Eyebrow.astro";
 import SectionTitle from "../ds/SectionTitle.astro";
 import Typed from "../ds/Typed.astro";
 import LinkCta from "../ds/LinkCta.astro";
+import Flourish from "../ds/Flourish.astro";
 import { resenas } from "../../content/copy";
 import { AMAZON_URL } from "../../content/site";
+const C = '<div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>';
 const RANGES: [number, number][] = [[5, 76], [16, 88], [27, 99], [34, 99], [41, 99], [48, 99]];
 ---
 <Section id="resenas" tone="page" align="center" variant="moss-flat">
   <div class="block" data-reveal="block">
     <Eyebrow>{resenas.eyebrow}</Eyebrow>
     <SectionTitle level={2} size="display-2" italic align="center"><Typed lines={resenas.titleLines} center ranges={[[8, 54], [48, 88]]} /></SectionTitle>
+    <Flourish class="fl" />
 
     <div class="grid">
       {resenas.items.map((r, i) => (
-        <figure data-reveal="lift" style={`--r0:${RANGES[i][0]}%;--r1:${RANGES[i][1]}%`}>
+        <figure class="es-corners" data-reveal="lift" style={`--r0:${RANGES[i][0]}%;--r1:${RANGES[i][1]}%;--corner:58px`}>
+          <Fragment set:html={C} />
           <div class="stars" aria-label={resenas.starsLabel}>★★★★★</div>
           <h3>{r.title}</h3>
           <blockquote set:html={r.quoteHtml} />
@@ -31,12 +35,13 @@ const RANGES: [number, number][] = [[5, 76], [16, 88], [27, 99], [34, 99], [41, 
 
 <style>
   .block { display: flex; flex-direction: column; align-items: center; gap: clamp(40px, 6vw, 64px); }
+  .block :global(.fl) { margin: calc(-1 * clamp(16px, 3vw, 32px)) auto; }
   .grid { display: flex; flex-wrap: wrap; align-items: stretch; gap: clamp(24px, 4vw, 40px); width: 100%; justify-content: center; }
   figure {
     flex: 1 1 300px; min-width: 0; max-width: 380px; margin: 0;
     display: flex; flex-direction: column; gap: var(--space-4);
     padding: clamp(28px, 4vw, 40px);
-    border: 1px solid var(--border-hairline); border-top: 2px solid var(--accent-wound);
+    border: 1px solid var(--border-hairline); border-top: 2px solid var(--accent-wound); outline: 1px solid var(--rule-faint); outline-offset: 6px;
     background: var(--surface-card); text-align: left;
   }
   .stars { display: flex; gap: 4px; color: var(--accent-primary); font-size: 13px; letter-spacing: .18em; }

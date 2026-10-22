@@ -85,3 +85,28 @@ html:not(.js) .es-intro, html:not(.js) .es-trail { display: none !important; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition-duration: 0s !important; }
 }
+
+/* --- Atmósfera gótica: utilidades compartidas --- */
+/* Marco de doble filete dorado con esquinas de filigrana (imagen generada, fondo negro fundido con screen). */
+.es-framed { position: relative; }
+.es-framed::before {
+  content: ""; position: absolute; inset: 10px; pointer-events: none; z-index: 2;
+  border: 1px solid var(--border-hairline); outline: 1px solid var(--rule-faint); outline-offset: 5px;
+}
+.es-corners { position: relative; }
+.es-corners > .corner {
+  position: absolute; width: var(--corner, 84px); aspect-ratio: 1; pointer-events: none; z-index: 3;
+  background: url("/ornaments/corner.webp") center / contain no-repeat; opacity: .92;
+}
+.es-corners > .corner.tl { top: -6px; left: -6px; }
+.es-corners > .corner.tr { top: -6px; right: -6px; transform: scaleX(-1); }
+.es-corners > .corner.bl { bottom: -6px; left: -6px; transform: scaleY(-1); }
+.es-corners > .corner.br { bottom: -6px; right: -6px; transform: scale(-1); }
+/* Capitular en Renaissance para el primer párrafo de un bloque de prosa. */
+.es-dropcap > p:first-of-type::first-letter {
+  float: left; font-family: var(--font-ornament); font-weight: 400; font-style: normal;
+  font-size: 4.6em; line-height: .78; padding: .1em .12em 0 0; color: var(--accent-primary);
+  text-shadow: 0 2px 18px rgba(225, 197, 135, .25);
+}
+/* Fotografías: grado uniforme verde-sepia para que entren en la paleta. */
+.es-grade { filter: sepia(.28) saturate(.72) contrast(1.06) brightness(.88); }
