@@ -35,9 +35,14 @@ import { contacto } from "../../content/copy";
         <textarea name="mensaje" rows="6" required></textarea>
       </label>
 
+      <label class="consent">
+        <input type="checkbox" name="consent" value="1" required />
+        <span set:html={contacto.consentHtml} />
+      </label>
+      <p class="info">{contacto.info}</p>
+
       <div class="actions">
         <Button variant="outline" arrow type="submit">{contacto.submit}</Button>
-        <span class="note">{contacto.note}</span>
       </div>
       <p class="error" data-contact-error role="alert" hidden>{contacto.error}</p>
     </form>
@@ -76,8 +81,18 @@ import { contacto } from "../../content/copy";
   textarea { resize: vertical; min-height: 160px; }
   input:focus, textarea:focus { border-color: var(--accent-primary); background: rgba(6, 16, 3, .55); }
   input:-webkit-autofill, textarea:-webkit-autofill { -webkit-text-fill-color: var(--text-heading); box-shadow: 0 0 0 1000px #0b1a09 inset; }
+  .consent {
+    display: flex; align-items: flex-start; gap: 14px; cursor: pointer;
+    font-family: var(--font-ui); font-weight: 300; font-size: var(--type-body-sm); line-height: 1.6; color: var(--text-body);
+  }
+  .consent input {
+    flex: 0 0 auto; width: 20px; height: 20px; margin: 3px 0 0; padding: 0;
+    accent-color: var(--accent-primary); cursor: pointer;
+  }
+  .consent :global(a) { color: var(--accent-primary); text-decoration: underline; text-underline-offset: 3px; }
+  .consent :global(a:hover) { color: var(--text-heading); }
+  .info { margin: 0; font-family: var(--font-ui); font-weight: 300; font-size: 13px; line-height: 1.7; color: var(--text-muted); text-wrap: pretty; }
   .actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-5) var(--space-7); margin-top: var(--space-2); }
-  .note { font-family: var(--font-ui); font-size: var(--type-fine); letter-spacing: .12em; text-transform: uppercase; color: var(--text-muted); }
   .success {
     margin: 0; padding: 32px 24px; text-align: center;
     border-top: 1px solid var(--border-hairline); border-bottom: 1px solid var(--border-hairline);

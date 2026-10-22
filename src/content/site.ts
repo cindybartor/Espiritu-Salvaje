@@ -3,7 +3,7 @@
 
 export const SITE_URL = "https://espiritusalvaje.es";
 export const AMAZON_URL = "https://amzn.eu/d/0dynUTLq";
-export const INSTAGRAM_URL = "https://www.instagram.com/indiasalvaje/";
+export const INSTAGRAM_URL = "https://www.instagram.com/libroespiritusalvaje/";
 
 export const author = {
   name: "Mari Carmen Pacheco Picazo",
@@ -47,13 +47,14 @@ export const bookJsonLd = {
   },
 };
 
+/* Con "/#…" los enlaces funcionan también desde las páginas legales. */
 export const navLinks = [
-  { label: "Inicio", href: "#hero" },
-  { label: "El libro", href: "#etapas" },
-  { label: "Autora", href: "#autora" },
-  { label: "Reseñas", href: "#resenas" },
-  { label: "FAQ", href: "#faq" },
-  { label: "Contacto", href: "#contacto" },
+  { label: "Inicio", href: "/#hero" },
+  { label: "El libro", href: "/#etapas" },
+  { label: "Autora", href: "/#autora" },
+  { label: "Reseñas", href: "/#resenas" },
+  { label: "FAQ", href: "/#faq" },
+  { label: "Contacto", href: "/#contacto" },
 ];
 
 export const nav = {
@@ -66,8 +67,10 @@ export const footer = {
   author: author.fullName,
   links: [
     { label: "Instagram", href: INSTAGRAM_URL },
-    { label: "Contacto", href: "#contacto" },
+    { label: "Contacto", href: "/#contacto" },
     { label: "Comprar", href: AMAZON_URL },
+    { label: "Aviso legal", href: "/aviso-legal" },
+    { label: "Privacidad", href: "/privacidad" },
   ],
   legal: "© 2026 María del Carmen Pacheco Picazo · Todos los derechos reservados · Web diseñada por Bartor Estudio",
 };

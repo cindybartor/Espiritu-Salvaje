@@ -35,7 +35,8 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   const nombre = clean(data.get("nombre"), 120);
   const email = clean(data.get("email"), 200);
   const mensaje = clean(data.get("mensaje"), 4000);
-  if (!nombre || !email || !mensaje) return reply(false, "missing_fields", 422);
+  const consent = clean(data.get("consent"), 10);
+  if (!nombre || !email || !mensaje || !consent) return reply(false, "missing_fields", 422);
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return reply(false, "bad_email", 422);
   if (!env.WEB3FORMS_KEY) return reply(false, "not_configured", 503);
 

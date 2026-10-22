@@ -10,4 +10,16 @@
       <image:title>Portada del libro Espíritu Salvaje de Mari Carmen Pacheco Picazo</image:title>
     </image:image>
   </url>
+  <url>
+    <loc>https://espiritusalvaje.es/privacidad</loc>
+    <lastmod>2026-10-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://espiritusalvaje.es/aviso-legal</loc>
+    <lastmod>2026-10-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
 </urlset>

@@ -1,0 +1,13 @@
+---
+import Base from "../layouts/Base.astro";
+import NavBar from "../components/ds/NavBar.astro";
+import SiteFooter from "../components/ds/SiteFooter.astro";
+import LegalPage from "../components/sections/LegalPage.astro";
+import { avisoLegal } from "../content/legal";
+---
+<Base title={`${avisoLegal.title} — Espíritu Salvaje`} description={avisoLegal.description} path="/aviso-legal" structuredData={false}>
+  <NavBar />
+  <main class="legal-main"><LegalPage doc={avisoLegal} /></main>
+  <SiteFooter />
+</Base>
+<style>.legal-main { padding-top: 72px; }</style>

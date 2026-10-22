@@ -251,7 +251,8 @@ export const contacto = {
   email: "Correo electrónico",
   message: "Mensaje",
   submit: "Enviar mensaje",
-  note: "Tus datos sólo se usan para responderte.",
+  consentHtml: 'He leído y acepto la <a href="/privacidad">política de privacidad</a>.',
+  info: "Información básica sobre protección de datos. Responsable: María del Carmen Pacheco Picazo. Finalidad: responder a tu mensaje. Base legal: tu consentimiento. Destinatarios: proveedores de alojamiento y de envío de formularios. Derechos: acceso, rectificación, supresión y los demás recogidos en la política de privacidad.",
   success: "Gracias. Tu mensaje ya está en camino.",
   error: "No se ha podido enviar el mensaje. Inténtalo de nuevo en un momento o escribe por Instagram.",
 };

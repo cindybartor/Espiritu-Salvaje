@@ -1,0 +1,13 @@
+---
+import Base from "../layouts/Base.astro";
+import NavBar from "../components/ds/NavBar.astro";
+import SiteFooter from "../components/ds/SiteFooter.astro";
+import LegalPage from "../components/sections/LegalPage.astro";
+import { privacidad } from "../content/legal";
+---
+<Base title={`${privacidad.title} — Espíritu Salvaje`} description={privacidad.description} path="/privacidad" structuredData={false}>
+  <NavBar />
+  <main class="legal-main"><LegalPage doc={privacidad} /></main>
+  <SiteFooter />
+</Base>
+<style>.legal-main { padding-top: 72px; }</style>
