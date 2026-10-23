@@ -25,7 +25,7 @@ export const comprar = {
   titleLines: [
     { text: "Hay libros que se leen." },
     { text: "Y hay libros en los que" },
-    { text: "te reconoces.", accent: true },
+    { text: "te ves reflejada.", accent: true },
   ],
   subtitle: "Espíritu Salvaje pertenece al segundo grupo.",
   quote: "Hace falta tocar fondo para subir con más impulso.",
@@ -146,7 +146,7 @@ export const autora = {
   photoAlt: "Retrato de Mari Carmen Pacheco Picazo, autora de Espíritu Salvaje",
   columnRightBefore: [
     "La fotografía de la portada del libro la hizo ella misma en la Amazonía peruana, en el lugar donde, después de mucho tiempo, por fin pudo encontrarse a sí misma.",
-    "Su voz busca conectar con quienes han atravesado caídas profundas y han aprendido a reconstruirse: mujeres que se reconocen en la vulnerabilidad, en la intensidad y en la fuerza ganada con dolor. Escribe para nombrar lo que, a veces, no puede con palabras, y para acompañar a quien lee.",
+    "Su voz busca conectar con quienes han atravesado caídas profundas y han aprendido a reconstruirse: mujeres que se ven reflejadas en la vulnerabilidad, en la intensidad y en la fuerza ganada con dolor. Escribe para nombrar lo que, a veces, no puede con palabras, y para acompañar a quien lee.",
   ],
   quote: "“No soy escritora profesional. Soy una mujer que escribe.”",
   columnRightAfter: [
