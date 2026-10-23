@@ -88,13 +88,13 @@ export const etapas = {
       alt: "Carta I del libro Espíritu Salvaje: la niña que escribía para entender",
       label: "I · LA NIÑA",
       title: "La niña que escribía para entender",
-      text: "Poesías escritas a mano, a los doce años, para poner nombre a lo que todavía no se entiende: el primer amor, el miedo, la casa, el cuerpo que cambia.",
+      text: "Poesías escritas a mano, a los doce años, para poner nombre a lo que todavía no se entiende: el primer amor, el miedo, las dudas, el cuerpo cambiando.",
     },
     {
       image: "carta-caida",
       alt: "Carta II del libro Espíritu Salvaje: el amor, el caos y la caída",
       label: "II · LA CAÍDA",
-      title: "El amor, el caos y la caída",
+      title: "El desamor, el caos y la caída",
       text: "Pasión, dependencia emocional, pérdida. Los textos se alargan y se oscurecen: aquí está la noche oscura del alma, sin adornos.",
     },
     {
