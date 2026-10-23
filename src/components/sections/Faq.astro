@@ -5,9 +5,11 @@ import Section from "../ds/Section.astro";
 import Eyebrow from "../ds/Eyebrow.astro";
 import SectionTitle from "../ds/SectionTitle.astro";
 import Typed from "../ds/Typed.astro";
+import Monogram from "../ds/Monogram.astro";
 import { faq } from "../../content/copy";
 ---
 <Section id="faq" tone="night" glow="wound" maxWidth="var(--measure-quote)">
+  <Monogram slot="bleed" size="min(60vw, 520px)" opacity={0.04} class="watermark" />
   <div class="block" data-reveal="block">
     <div class="head">
       <Eyebrow align="left">{faq.eyebrow}</Eyebrow>
@@ -26,6 +28,7 @@ import { faq } from "../../content/copy";
 
 <style>
   .block { display: flex; flex-direction: column; gap: clamp(40px, 6vw, 64px); }
+  :global(#faq .watermark) { position: absolute; left: -8%; top: 8%; z-index: 0; }
   .head { display: flex; flex-direction: column; gap: var(--space-5); }
   .list { display: flex; flex-direction: column; }
   .item { border-top: 1px solid var(--border-hairline); padding: clamp(24px, 4vw, 32px) 0; }

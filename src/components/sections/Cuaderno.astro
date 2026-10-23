@@ -4,17 +4,21 @@ import Section from "../ds/Section.astro";
 import Eyebrow from "../ds/Eyebrow.astro";
 import SectionTitle from "../ds/SectionTitle.astro";
 import Typed from "../ds/Typed.astro";
+import Flourish from "../ds/Flourish.astro";
 import { cuaderno } from "../../content/copy";
+const C = '<div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>';
 const RANGES: [number, number][] = [[5, 76], [16, 88], [27, 99]];
 ---
 <Section id="cuaderno" tone="page" align="center" variant="moss">
   <div class="block" data-reveal="block">
     <Eyebrow>{cuaderno.eyebrow}</Eyebrow>
     <SectionTitle level={2} size="display-2" italic align="center"><Typed lines={cuaderno.titleLines} center /></SectionTitle>
+    <Flourish class="fl" />
 
     <div class="grid">
       {cuaderno.verses.map((v, i) => (
-        <figure data-reveal="lift" style={`--r0:${RANGES[i][0]}%;--r1:${RANGES[i][1]}%`}>
+        <figure class="es-corners" data-reveal="lift" style={`--r0:${RANGES[i][0]}%;--r1:${RANGES[i][1]}%;--corner:52px`}>
+          <Fragment set:html={C} />
           <div class="star" aria-hidden="true">✦</div>
           <figcaption>{v.stage}</figcaption>
           <p>{v.text}</p>
@@ -27,12 +31,13 @@ const RANGES: [number, number][] = [[5, 76], [16, 88], [27, 99]];
 
 <style>
   .block { display: flex; flex-direction: column; align-items: center; gap: clamp(40px, 6vw, 64px); }
+  .block :global(.fl) { margin: calc(-1 * clamp(16px, 3vw, 32px)) auto; }
   .grid { display: flex; flex-wrap: wrap; gap: clamp(24px, 4vw, 40px); width: 100%; justify-content: center; }
   figure {
     flex: 1 1 240px; min-width: 0; max-width: 360px; margin: 0;
     display: flex; flex-direction: column; align-items: center; gap: var(--space-5);
     padding: clamp(32px, 5vw, 48px) var(--space-6);
-    border: 1px dashed var(--border-hairline); border-top: 2px solid var(--accent-wound);
+    border: 1px solid var(--border-hairline); border-top: 2px solid var(--accent-wound);
     background: rgba(6, 16, 3, .35); text-align: center;
   }
   .star { font-family: var(--font-display); font-size: 18px; letter-spacing: 12px; color: var(--accent-primary); opacity: .5; }

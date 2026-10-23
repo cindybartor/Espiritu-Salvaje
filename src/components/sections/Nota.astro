@@ -5,21 +5,24 @@ import Eyebrow from "../ds/Eyebrow.astro";
 import SectionTitle from "../ds/SectionTitle.astro";
 import Typed from "../ds/Typed.astro";
 import Prose from "../ds/Prose.astro";
+import Monogram from "../ds/Monogram.astro";
 import { nota } from "../../content/copy";
 ---
 <Section id="nota" tone="page" maxWidth="var(--measure-prose)">
   <div class="block" data-reveal="block">
     <Eyebrow align="left">{nota.eyebrow}</Eyebrow>
     <SectionTitle level={2} size="display-2"><Typed lines={nota.titleLines} /></SectionTitle>
-    <Prose>
+    <Prose class="es-dropcap">
       {nota.paragraphsHtml.map((p) => <p set:html={p} />)}
     </Prose>
     <div class="sign">{nota.signature}</div>
+    <Monogram size="64px" opacity={0.55} class="seal" />
   </div>
 </Section>
 
 <style>
   .block { display: flex; flex-direction: column; gap: var(--space-5); }
+  .block :global(.seal) { margin-top: var(--space-2); }
   .sign {
     margin-top: var(--space-4);
     font-family: var(--font-display); font-style: italic; font-weight: 300;
