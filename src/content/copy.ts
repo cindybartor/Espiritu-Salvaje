@@ -102,7 +102,7 @@ export const etapas = {
       alt: "Carta III del libro Espíritu Salvaje: el renacer",
       label: "III · EL RENACER",
       title: "El renacer",
-      text: "La voz se serena. Romperse por completo para construirse de nuevo, y no volver a pedir permiso para ser salvaje.",
+      text: "La voz se serena. Romperse por completo para construirse de nuevo, desde cero, y no volver a pedir permiso para ser ella misma, para volar.",
     },
   ],
   cta: "Comprar en Amazon",
