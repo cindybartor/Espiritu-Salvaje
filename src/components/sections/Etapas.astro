@@ -1,0 +1,86 @@
+---
+/* #etapas: tres cartas en escalera. Animación "deal" en src/scripts/deal.ts: las cartas
+   empiezan apiladas en el centro del bloque y se reparten al entrar en pantalla. */
+import { Image } from "astro:assets";
+import Section from "../ds/Section.astro";
+import Eyebrow from "../ds/Eyebrow.astro";
+import SectionTitle from "../ds/SectionTitle.astro";
+import Typed from "../ds/Typed.astro";
+import Button from "../ds/Button.astro";
+import { etapas } from "../../content/copy";
+import { AMAZON_URL } from "../../content/site";
+import cartaNina from "../../assets/uploads/carta-nina.png";
+import cartaCaida from "../../assets/uploads/carta-caida.png";
+import cartaRenacer from "../../assets/uploads/carta-renacer.png";
+
+const images = { "carta-nina": cartaNina, "carta-caida": cartaCaida, "carta-renacer": cartaRenacer } as const;
+/* inclinación de reparto (sr) y final (rot), retardo por carta */
+const TILT = [
+  { sr: -5, rot: -7, d: 0, dt: 780, shift: "2%" },
+  { sr: 3, rot: 5, d: 260, dt: 1040, shift: "11%" },
+  { sr: -1, rot: -3.5, d: 520, dt: 1300, shift: "20%" },
+];
+---
+<Section id="etapas" tone="deep" glow="wound">
+  <div class="block" data-reveal="block">
+    <div class="head">
+      <Eyebrow align="left">{etapas.eyebrow}</Eyebrow>
+      <SectionTitle level={2} size="display-2"><Typed lines={etapas.titleLines} /></SectionTitle>
+      <p class="body">{etapas.text}</p>
+    </div>
+
+    <div class="stage" data-deal>
+      {etapas.cards.map((c, i) => (
+        <div class="row" style={`--shift:${TILT[i].shift};z-index:${3 - i}`}>
+          <div class="card" data-deal-card style={`--sr:${TILT[i].sr};--rot:${TILT[i].rot};--d:${TILT[i].d}ms`}>
+            <Image src={images[c.image as keyof typeof images]} alt={c.alt} width={250} densities={[1, 2, 3]} format="webp" loading="lazy" class="card-img" />
+          </div>
+          <div class="text" data-deal-text style={`--dt:${TILT[i].dt}ms`}>
+            <div class="label">{c.label}</div>
+            <h3>{c.title}</h3>
+            <p class="body">{c.text}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="cta"><Button variant="outline" arrow href={AMAZON_URL}>{etapas.cta}</Button></div>
+  </div>
+</Section>
+
+<style>
+  .block { display: flex; flex-direction: column; gap: clamp(48px, 7vw, 80px); }
+  .head { display: flex; flex-direction: column; gap: var(--space-5); max-width: var(--measure-prose); }
+  .body {
+    margin: 0; font-family: var(--font-ui); font-weight: 300;
+    font-size: var(--type-body); line-height: var(--lh-body); color: var(--text-body); text-wrap: pretty;
+  }
+
+  .stage { position: relative; display: flex; flex-direction: column; gap: clamp(40px, 5vw, 72px); padding: clamp(8px, 2vw, 28px) 0; }
+  .row {
+    position: relative; display: flex; flex-wrap: wrap; align-items: center; gap: clamp(24px, 4vw, 56px);
+    /* escalera sólo a partir de 900px */
+    margin-left: max(0px, min(var(--shift), (100vw - 900px) * 100));
+  }
+  .card {
+    flex: 0 0 auto; width: clamp(180px, 20vw, 250px); aspect-ratio: 1077 / 1616;
+    opacity: var(--co, 1);
+    transform: translate(calc(var(--dx, 0px) * var(--k, 0)), calc(var(--dy, 0px) * var(--k, 0)))
+      rotate(calc((var(--sr) * var(--k, 0) + var(--rot) * (1 - var(--k, 0))) * 1deg));
+    transition: transform var(--dur, 1.15s) cubic-bezier(.22, .78, .2, 1) var(--d), opacity var(--dur, 1.15s) ease var(--d);
+    will-change: transform;
+  }
+  .card-img { display: block; width: 100%; height: auto; border-radius: 16px; filter: drop-shadow(0 24px 36px rgba(4, 12, 2, .6)) drop-shadow(0 4px 10px rgba(4, 12, 2, .5)); }
+  .text {
+    flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: var(--space-4);
+    border-top: 2px solid var(--accent-wound); padding-top: var(--space-6);
+    opacity: calc(1 - var(--k, 0)); transform: translateY(calc(var(--k, 0) * 16px));
+    transition: opacity var(--durT, .8s) ease var(--dt, 780ms), transform var(--durT, .8s) cubic-bezier(.22, .78, .2, 1) var(--dt, 780ms);
+  }
+  .label { font-family: var(--font-display); font-size: 13px; letter-spacing: .4em; color: var(--accent-primary); opacity: .8; }
+  h3 {
+    margin: 0; font-family: var(--font-display); font-weight: 300; font-style: italic;
+    font-size: clamp(24px, 2.4vw, 30px); line-height: 1.3; color: var(--text-heading);
+  }
+  .cta { display: flex; justify-content: center; }
+</style>

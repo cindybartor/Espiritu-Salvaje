@@ -1,0 +1,35 @@
+---
+/* Cita destacada (de QuoteBlock.jsx). `fragment`: crema grande; `closing`: dorada entre filetes. */
+import Ornament from "./Ornament.astro";
+interface Props { variant?: "fragment" | "closing"; ornaments?: boolean; attribution?: string; class?: string }
+const { variant = "fragment", ornaments = false, attribution, class: className } = Astro.props;
+---
+<figure class:list={["es-quote", `v-${variant}`, className]}>
+  {ornaments && <Ornament variant="stars" class="orn" />}
+  <blockquote><slot /></blockquote>
+  {ornaments && <Ornament variant="stars" class="orn" />}
+  {attribution && <figcaption>— {attribution}</figcaption>}
+</figure>
+
+<style>
+  .es-quote { margin: 0 auto; max-width: var(--measure-quote); text-align: center; }
+  .es-quote :global(.orn) { margin: 20px 0; }
+  blockquote {
+    margin: 0;
+    font-family: var(--font-display); font-weight: 300; font-style: italic;
+    font-size: var(--type-quote-lg); line-height: var(--lh-quote);
+    color: var(--text-heading);
+    text-wrap: pretty;
+  }
+  .v-closing blockquote {
+    font-size: var(--type-quote); line-height: 1.4;
+    color: var(--accent-primary);
+    padding: 50px 20px;
+    border-top: 1px solid var(--border-hairline);
+    border-bottom: 1px solid var(--border-hairline);
+  }
+  figcaption {
+    font-family: var(--font-ui); font-size: var(--type-eyebrow); letter-spacing: var(--track-eyebrow);
+    text-transform: uppercase; color: var(--accent-primary); opacity: .7; margin-top: 40px;
+  }
+</style>

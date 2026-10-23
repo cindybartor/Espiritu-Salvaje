@@ -1,0 +1,47 @@
+---
+/* Barra fija (de NavBar.jsx). El modo compacto (≤1120px) se resuelve en CSS:
+   sin enlaces, CTA "Comprar", padding 16px 20px y logo de 30px. */
+import { Image } from "astro:assets";
+import Button from "./Button.astro";
+import logo from "../../assets/uploads/logo-navbar-v2.png";
+import { navLinks, nav, AMAZON_URL } from "../../content/site";
+---
+<nav class="es-nav" aria-label="Principal">
+  <a href="/#hero" class="brand" aria-label="Inicio">
+    <Image src={logo} alt={nav.logoAlt} width={213} densities={[1, 2, 3]} format="webp" loading="eager" class="logo" />
+  </a>
+  <div class="right">
+    {navLinks.map((l) => <a href={l.href} class="link">{l.label}</a>)}
+    <Button variant="nav" href={AMAZON_URL}><span class="full">{nav.cta}</span><span class="short">{nav.ctaCompact}</span></Button>
+  </div>
+</nav>
+
+<style>
+  .es-nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: var(--nav-y) var(--nav-x);
+    display: flex; justify-content: space-between; align-items: center; gap: 24px;
+    background: var(--veil-top);
+    backdrop-filter: blur(var(--blur-veil)); -webkit-backdrop-filter: blur(var(--blur-veil));
+    font-family: var(--font-ui);
+  }
+  .brand { display: block; line-height: 0; }
+  .logo { display: block; height: 38px; width: auto; }
+  .right { display: flex; gap: 48px; align-items: center; }
+  .link {
+    color: var(--text-body); text-decoration: none;
+    font-size: var(--type-label); letter-spacing: var(--track-nav); text-transform: uppercase; font-weight: 400;
+    transition: color var(--dur-fast) var(--ease); white-space: nowrap;
+  }
+  .link:hover { color: var(--accent-primary); }
+  .short { display: none; }
+
+  @media (max-width: 1120px) {
+    .es-nav { padding: 16px 20px; }
+    .logo { height: 30px; }
+    .right { gap: 20px; }
+    .link { display: none; }
+    .full { display: none; }
+    .short { display: inline; }
+  }
+</style>

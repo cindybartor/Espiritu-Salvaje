@@ -1,0 +1,44 @@
+---
+/* Página legal (privacidad, aviso legal): texto largo, sin animaciones. */
+import Section from "../ds/Section.astro";
+import Eyebrow from "../ds/Eyebrow.astro";
+import type { LegalDoc } from "../../content/legal";
+import { TITULAR } from "../../content/legal";
+interface Props { doc: LegalDoc }
+const { doc } = Astro.props;
+---
+<Section tone="page" maxWidth="var(--measure-prose)" class="legal">
+  <div class="head">
+    <Eyebrow align="left">Información legal</Eyebrow>
+    <h1>{doc.title}</h1>
+    <p class="updated">Última actualización: {TITULAR.actualizado}</p>
+  </div>
+  <div class="body">
+    {doc.sections.map((s) => (
+      <section>
+        <h2>{s.h}</h2>
+        {s.p.map((t) => <p>{t}</p>)}
+      </section>
+    ))}
+  </div>
+  <p class="back"><a href="/">← Volver al inicio</a></p>
+</Section>
+
+<style>
+  .head { display: flex; flex-direction: column; gap: var(--space-5); margin-bottom: clamp(40px, 6vw, 64px); }
+  h1 {
+    margin: 0; font-family: var(--font-display); font-weight: 400; font-size: var(--type-display-2);
+    line-height: var(--lh-display); letter-spacing: var(--track-tight); color: var(--text-heading);
+  }
+  .updated { margin: 0; font-family: var(--font-ui); font-size: var(--type-fine); letter-spacing: .12em; text-transform: uppercase; color: var(--text-muted); }
+  .body { display: flex; flex-direction: column; gap: clamp(32px, 4vw, 48px); }
+  h2 {
+    margin: 0 0 var(--space-3); font-family: var(--font-display); font-weight: 300; font-style: italic;
+    font-size: clamp(24px, 2.4vw, 30px); line-height: 1.4; color: var(--accent-primary);
+  }
+  p { margin: 0 0 var(--space-4); font-family: var(--font-ui); font-weight: 300; font-size: var(--type-body); line-height: var(--lh-body); color: var(--text-body); text-wrap: pretty; }
+  p:last-child { margin-bottom: 0; }
+  .back { margin-top: clamp(40px, 6vw, 64px); font-size: var(--type-label); letter-spacing: var(--track-label); text-transform: uppercase; }
+  .back a { color: var(--accent-primary); text-decoration: none; }
+  .back a:hover { color: var(--text-heading); }
+</style>

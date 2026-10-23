@@ -1,0 +1,50 @@
+---
+/* #comprar: cierre y CTA principal, en arco sobre el hero. */
+import Section from "../ds/Section.astro";
+import SectionTitle from "../ds/SectionTitle.astro";
+import Typed from "../ds/Typed.astro";
+import Flourish from "../ds/Flourish.astro";
+import QuoteBlock from "../ds/QuoteBlock.astro";
+import Button from "../ds/Button.astro";
+import { comprar } from "../../content/copy";
+import { AMAZON_URL } from "../../content/site";
+---
+<Section id="comprar" tone="dawn" glow="gold" align="center" variant="wide-arch">
+  <div class="block" data-reveal="block">
+    <div class="title">
+      <SectionTitle level={2} size="display-2" align="center">
+        <Typed lines={comprar.titleLines} center accentWeight={400} />
+      </SectionTitle>
+    </div>
+    <p class="sub">{comprar.subtitle}</p>
+    <div class="wound" data-reveal="wound">
+      <Flourish width="100%" />
+    </div>
+    <div class="quote">
+      <QuoteBlock variant="closing">{comprar.quote}</QuoteBlock>
+    </div>
+    <Button variant="solid" arrow href={AMAZON_URL}>{comprar.cta}</Button>
+    <div class="formats">
+      <span>{comprar.formats}</span>
+      <span class="kindle">{comprar.kindle}</span>
+    </div>
+  </div>
+</Section>
+
+<style>
+  .block { display: flex; flex-direction: column; align-items: center; gap: var(--space-7); }
+  .title { max-width: 900px; }
+  .sub {
+    /* el prototipo dejaba hasta 80px aquí; con el gap del bloque (40px) sobraba aire */
+    margin: 0 0 clamp(8px, 1.5vw, 16px);
+    font-family: var(--font-display); font-style: italic; font-size: clamp(27px, 2.1vw, 28px);
+    color: var(--text-body); text-wrap: pretty;
+  }
+  .wound { width: min(460px, 80%); }
+  .quote { width: 100%; margin-bottom: clamp(24px, 5vw, 48px); }
+  .formats {
+    margin-top: var(--space-2); display: flex; flex-direction: column; align-items: center; gap: 8px;
+    font-size: 13px; letter-spacing: .36em; color: var(--text-muted); text-transform: uppercase;
+  }
+  .kindle { color: var(--accent-primary); opacity: .85; }
+</style>

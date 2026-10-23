@@ -1,0 +1,38 @@
+---
+/* Botón (de Button.jsx): outline (CTA secundario), solid (CTA principal) y nav (barra).
+   Con `href` es un enlace; sin él, un <button> (p. ej. type="submit" en el formulario). */
+interface Props {
+  variant?: "outline" | "solid" | "nav";
+  href?: string;
+  type?: "submit" | "button";
+  arrow?: boolean;
+  class?: string;
+}
+const { variant = "outline", href, type = "button", arrow = false, class: className } = Astro.props;
+const Tag = href ? "a" : "button";
+---
+<Tag href={href} type={href ? undefined : type} class:list={["es-btn", `v-${variant}`, className]}>
+  <slot />
+  {arrow && <span class="arrow" aria-hidden="true">→</span>}
+</Tag>
+
+<style>
+  .es-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    font-family: var(--font-ui); font-size: var(--type-label); font-weight: 500;
+    text-transform: uppercase; text-decoration: none; cursor: pointer;
+    border: 1px solid var(--accent-primary); background: transparent;
+    transition: color var(--dur-mid) var(--ease), background var(--dur-mid) var(--ease), box-shadow var(--dur-mid) var(--ease), transform var(--dur-mid) var(--ease);
+  }
+  .arrow { transition: transform var(--dur-fast) var(--ease); }
+  .es-btn:hover .arrow { transform: translateX(6px); }
+
+  .v-outline { padding: 20px 48px; letter-spacing: var(--track-label); border-radius: var(--radius-none); color: var(--accent-primary); }
+  .v-outline:hover { background: var(--accent-primary); color: var(--text-on-gold); }
+
+  .v-solid { padding: 24px 68px; letter-spacing: .42em; border-radius: var(--radius-none); color: var(--text-on-gold); background: var(--accent-primary); }
+  .v-solid:hover { background: transparent; color: var(--accent-primary); transform: translateY(-2px); box-shadow: var(--shadow-lift); }
+
+  .v-nav { padding: 12px 28px; letter-spacing: var(--track-label); border-radius: var(--radius-hairline); color: var(--accent-primary); }
+  .v-nav:hover { background: var(--accent-primary); color: var(--text-on-gold); }
+</style>

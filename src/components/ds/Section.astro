@@ -1,0 +1,90 @@
+---
+/* Sección de página (de Section.jsx): ritmo vertical largo, brillo interior opcional.
+   `variant` recoge los ajustes de padding/forma que el prototipo aplicaba por sección:
+   - default    → clamp(100px,13vw,180px) vertical
+   - wide-arch  → #comprar: más alto, borde superior en arco sobre el hero
+   - moss       → #cuaderno: fondo musgo + arco
+   - moss-flat  → #resenas: fondo musgo sin arco
+   Capa "atmósfera": damasco tono sobre tono + grano sobre el fondo liso (texture="none" la quita).
+   Se usa overflow: clip en vez de overflow: hidden: recorta sin crear un contenedor de scroll,
+   así view() sigue vivo. */
+interface Props {
+  id?: string;
+  tone?: "page" | "deep" | "night" | "dawn";
+  glow?: "none" | "gold" | "wound";
+  align?: "left" | "center";
+  maxWidth?: string;
+  variant?: "default" | "wide-arch" | "moss" | "moss-flat";
+  texture?: "damask" | "none";
+  class?: string;
+}
+const {
+  id,
+  tone = "page",
+  glow = "none",
+  align = "left",
+  maxWidth = "var(--measure-page)",
+  variant = "default",
+  texture = "damask",
+  class: className,
+} = Astro.props;
+---
+<section id={id} class:list={["es-section", `tone-${tone}`, `v-${variant}`, `t-${texture}`, className]} data-align={align} style={`--max:${maxWidth}`}>
+  <slot name="bleed" />
+  {glow === "gold" && <div class="glow glow-gold" aria-hidden="true"></div>}
+  {glow === "wound" && <div class="glow glow-wound" aria-hidden="true"></div>}
+  <div class="inner"><slot /></div>
+</section>
+
+<style>
+  .es-section {
+    position: relative;
+    overflow: clip;
+    padding: clamp(100px, 13vw, 180px) var(--px);
+    background: var(--bg-page);
+    text-align: left;
+  }
+  .es-section[data-align="center"] { text-align: center; }
+  .tone-deep { background: var(--bg-deep); }
+  .tone-night { background: var(--bg-night); }
+  .tone-dawn { background: linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-page) 40%, var(--bg-night) 100%); }
+
+  /* damasco + grano: la superficie deja de ser un color plano */
+  .t-damask::before {
+    content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+    background-image: url("/ornaments/damask.webp");
+    background-size: 720px auto; background-position: center top;
+    opacity: .22; mix-blend-mode: soft-light;
+  }
+  .t-damask::after {
+    content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .55 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-size: 160px 160px; opacity: .07; mix-blend-mode: overlay;
+  }
+  .v-wide-arch.t-damask::before, .v-wide-arch.t-damask::after,
+  .v-moss.t-damask::before, .v-moss.t-damask::after { border-radius: inherit; }
+
+  .glow {
+    position: absolute; top: 50%; left: 50%;
+    width: 800px; height: 800px;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+  .glow-gold { background: var(--glow-center); }
+  .glow-wound { background: var(--glow-wound); opacity: .4; }
+
+  .inner { position: relative; z-index: 2; max-width: var(--max); margin-left: auto; margin-right: auto; }
+
+  .v-wide-arch,
+  .v-moss {
+    border-radius: 50% 50% 0 0 / clamp(28px, 5vw, 70px) clamp(28px, 5vw, 70px) 0 0;
+    border-top: 2px solid var(--accent-wound);
+    margin-top: clamp(-120px, -6vw, -40px);
+    z-index: 3;
+  }
+  .v-wide-arch { padding: clamp(120px, 15vw, 200px) var(--px); }
+  .v-moss,
+  .v-moss-flat {
+    background: linear-gradient(180deg, rgba(94, 100, 62, .55) 0%, rgba(94, 100, 62, .3) 100%), var(--bg-page);
+  }
+</style>

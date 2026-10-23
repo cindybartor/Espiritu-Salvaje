@@ -1,0 +1,115 @@
+/* Base global de la página: ajustes del prototipo sobre los tokens, reset mínimo,
+   keyframes compartidos y las reglas de respaldo para los reveals por scroll. */
+@import "./tokens/fonts.css";
+@import "./tokens/colors.css";
+@import "./tokens/typography.css";
+@import "./tokens/spacing.css";
+@import "./tokens/effects.css";
+
+/* --- Ajustes de la landing sobre los tokens del sistema --- */
+:root {
+  --type-body: clamp(18px, 1.15vw, 20px);
+  --type-body-sm: clamp(18px, 1.15vw, 20px);
+  --type-lede: clamp(22px, 2.1vw, 28px);
+  --type-eyebrow: 13px;
+  --type-label: 13px;
+  --type-fine: 12px;
+  --type-quote: clamp(30px, 3vw, 38px);
+  /* padding horizontal de las secciones */
+  --px: clamp(24px, 4vw, 40px);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg-page);
+  color: var(--text-heading);
+  font-family: var(--font-ui);
+  font-weight: 300;
+  line-height: var(--lh-ui);
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+section[id] { scroll-margin-top: 104px; }
+a { color: var(--link); }
+a:hover { color: var(--link-hover); }
+
+/* --- Keyframes compartidos --- */
+@keyframes esFadeUpDown { 0%, 100% { transform: translate(-50%, 0); opacity: .4; } 50% { transform: translate(-50%, -10px); opacity: .9; } }
+@keyframes esRise { 0% { opacity: 0; transform: translate3d(0, 78px, 0) scale(0.9); filter: blur(5px); } 34% { filter: blur(0); } 100% { opacity: 1; transform: translate3d(0, 0, 0) scale(1); filter: blur(0); } }
+@keyframes esLift { from { opacity: 0; transform: translate3d(0, 62px, 0) scale(0.93); } to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); } }
+@keyframes esDrift { from { transform: translate3d(0, -6%, 0); } to { transform: translate3d(0, 6%, 0); } }
+@keyframes esWound { from { opacity: 0; transform: scaleX(.25); } to { opacity: 1; transform: none; } }
+@keyframes esTypeIn { from { clip-path: inset(-.22em 100% -.32em 0); } to { clip-path: inset(-.22em -.28em -.32em 0); } }
+@keyframes esCaret { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+@keyframes esCoverDrift { 0% { transform: translateX(-14px) rotate(-.4deg); } 50% { transform: translateX(14px) rotate(.4deg); } 100% { transform: translateX(-14px) rotate(-.4deg); } }
+@keyframes esDrip { 0% { transform: scaleY(0); opacity: 0; } 8% { opacity: .9; } 70% { opacity: .55; } 100% { transform: scaleY(1); opacity: 0; } }
+@keyframes esBead { 0% { transform: translateY(0); opacity: 0; } 10% { opacity: .95; } 92% { opacity: .5; } 100% { transform: translateY(var(--fall)); opacity: 0; } }
+@keyframes esEmber { 0% { transform: translate3d(0, 0, 0) scale(.6); opacity: 0; } 15% { opacity: .85; } 70% { opacity: .5; } 100% { transform: translate3d(var(--dx), -78vh, 0) scale(1.15); opacity: 0; } }
+@keyframes esBreathe { 0%, 100% { opacity: .34; transform: scale(1); } 50% { opacity: .62; transform: scale(1.08); } }
+@keyframes esBloodDrip { 0% { transform: translateY(0); opacity: 0; } 10% { opacity: .6; } 85% { opacity: .6; } 100% { transform: translateY(110vh); opacity: 0; } }
+@keyframes esFloatEmber { 0% { transform: translateY(0) translateX(0); opacity: 0; } 10% { opacity: .8; } 50% { transform: translateY(-50vh) translateX(20px); opacity: 1; } 90% { opacity: .4; } 100% { transform: translateY(-100vh) translateX(-20px); opacity: 0; } }
+
+/* --- Reveals por scroll (animation-timeline: view()) ---
+   Las secciones usan overflow: clip en lugar de overflow: hidden, porque hidden crea
+   un contenedor de scroll y desactiva view(); clip recorta sin crearlo. */
+[data-reveal="block"] { animation: esRise linear both; animation-timeline: view(); animation-range: entry 0% entry 82%; }
+[data-reveal="lift"] { animation: esLift linear both; animation-timeline: view(); animation-range: entry var(--r0, 5%) entry var(--r1, 76%); }
+[data-reveal="wound"] { animation: esWound linear both; animation-timeline: view(); animation-range: entry 20% entry 92%; }
+[data-typed] {
+  display: block; width: fit-content; max-width: 100%;
+  animation: esTypeIn steps(var(--n, 26)) both; animation-timeline: view();
+  animation-range: entry var(--r0, 14%) entry var(--r1, 56%);
+}
+.es-caret { display: inline-block; width: .05em; height: .78em; margin-left: .12em; vertical-align: -.02em; background: var(--accent-primary); animation: esCaret 1.3s steps(1) infinite; }
+
+/* Respaldo por geometría (IntersectionObserver en src/scripts/reveals.ts) cuando el
+   navegador no soporta view(). Se activa con html[data-es-fallback]. */
+html[data-es-fallback] [data-shown] { animation: none; }
+html[data-es-fallback] [data-reveal][data-shown] { transition: opacity .8s var(--ease), transform .9s var(--ease), filter .38s var(--ease); }
+html[data-es-fallback] [data-reveal][data-shown="0"] { opacity: 0; }
+html[data-es-fallback] [data-reveal="block"][data-shown="0"] { transform: translate3d(0, 78px, 0) scale(.9); filter: blur(5px); }
+html[data-es-fallback] [data-reveal="lift"][data-shown="0"] { transform: translate3d(0, 62px, 0) scale(.93); }
+html[data-es-fallback] [data-reveal="wound"][data-shown="0"] { transform: scaleX(.25); }
+html[data-es-fallback] [data-reveal][data-shown="1"] { opacity: 1; transform: none; filter: none; }
+html[data-es-fallback] [data-typed][data-shown] { opacity: 1; transition: clip-path 1.6s steps(var(--n, 26)); }
+html[data-es-fallback] [data-typed][data-shown="0"] { clip-path: inset(-.22em 100% -.32em 0); }
+html[data-es-fallback] [data-typed][data-shown="1"] { clip-path: inset(-.22em -.28em -.32em 0); }
+
+/* --- Sin JavaScript: no hay cortina de intro ni rastro de sangre --- */
+html:not(.js) .es-intro, html:not(.js) .es-trail { display: none !important; }
+
+/* --- Movimiento reducido: todo al estado final --- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition-duration: 0s !important; }
+}
+
+/* --- Atmósfera gótica: utilidades compartidas --- */
+/* Marco de doble filete dorado con esquinas de filigrana (imagen generada, fondo negro fundido con screen). */
+.es-framed { position: relative; }
+.es-framed::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 2;
+  border: 1px solid var(--border-hairline);
+}
+.es-corners { position: relative; }
+.es-corners > .corner {
+  position: absolute; width: var(--corner, 72px); aspect-ratio: 1; pointer-events: none; z-index: 3;
+  background: url("/ornaments/corner.webp") center / contain no-repeat; opacity: .92;
+}
+.es-corners > .corner.tl { top: -3px; left: -3px; transform: scaleY(-1); }
+.es-corners > .corner.tr { top: -3px; right: -3px; transform: scale(-1); }
+.es-corners > .corner.bl { bottom: -3px; left: -3px; }
+.es-corners > .corner.br { bottom: -3px; right: -3px; transform: scaleX(-1); }
+/* Capitular en Renaissance para el primer párrafo de un bloque de prosa. */
+.es-dropcap > p:first-of-type::first-letter {
+  float: left; font-family: var(--font-ornament); font-weight: 400; font-style: normal;
+  font-size: 4.6em; line-height: .78; padding: .1em .12em 0 0; color: var(--accent-primary);
+  text-shadow: 0 2px 18px rgba(225, 197, 135, .25);
+}
+/* Fotografías: grado uniforme verde-sepia para que entren en la paleta. */
+.es-grade { filter: sepia(.28) saturate(.72) contrast(1.06) brightness(.88); }
+
+/* Texto solo para lectores de pantalla */
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }

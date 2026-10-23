@@ -1,0 +1,32 @@
+---
+/* Titular de sección (de SectionTitle.jsx). Redonda 400 crema; cursiva 300 dorada. */
+interface Props {
+  level?: 1 | 2 | 3;
+  size?: "hero" | "display-1" | "display-2" | "display-3";
+  italic?: boolean;
+  align?: "left" | "center";
+  color?: string;
+  class?: string;
+}
+const { level = 2, size = "display-3", italic = false, align = "left", color, class: className } = Astro.props;
+const Tag = `h${level}` as "h1" | "h2" | "h3";
+const sizes = { hero: "var(--type-hero)", "display-1": "var(--type-display-1)", "display-2": "var(--type-display-2)", "display-3": "var(--type-display-3)" };
+const style = `--fs:${sizes[size]};--ta:${align}${color ? `;--c:${color}` : ""}`;
+---
+<Tag class:list={["es-title", { italic }, className]} style={style}><slot /></Tag>
+
+<style>
+  .es-title {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-style: normal;
+    font-size: var(--fs);
+    line-height: var(--lh-display);
+    letter-spacing: var(--track-tight);
+    color: var(--c, var(--text-heading));
+    text-align: var(--ta);
+    margin: 0;
+    text-wrap: pretty;
+  }
+  .es-title.italic { font-weight: 300; font-style: italic; color: var(--c, var(--accent-primary)); }
+</style>

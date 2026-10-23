@@ -1,0 +1,48 @@
+---
+/* Landing de Espíritu Salvaje: una sola página, secciones en el orden aprobado. */
+import Base from "../layouts/Base.astro";
+import NavBar from "../components/ds/NavBar.astro";
+import SiteFooter from "../components/ds/SiteFooter.astro";
+import Intro from "../components/sections/Intro.astro";
+import BloodTrail from "../components/sections/BloodTrail.astro";
+import Hero from "../components/sections/Hero.astro";
+import Comprar from "../components/sections/Comprar.astro";
+import Fragmento from "../components/sections/Fragmento.astro";
+import Nota from "../components/sections/Nota.astro";
+import Libro from "../components/sections/Libro.astro";
+import ParaQuien from "../components/sections/ParaQuien.astro";
+import Etapas from "../components/sections/Etapas.astro";
+import ParallaxBand from "../components/sections/ParallaxBand.astro";
+import Cuaderno from "../components/sections/Cuaderno.astro";
+import Autora from "../components/sections/Autora.astro";
+import Libertad from "../components/sections/Libertad.astro";
+import Resenas from "../components/sections/Resenas.astro";
+import Faq from "../components/sections/Faq.astro";
+import Contacto from "../components/sections/Contacto.astro";
+import LibertadCierre from "../components/sections/LibertadCierre.astro";
+import { parallax } from "../content/copy";
+---
+<Base>
+  <BloodTrail />
+  <Intro />
+  <NavBar />
+  <main>
+    <Hero />
+    <Comprar />
+    <Fragmento />
+    <Nota />
+    <Libro />
+    <ParaQuien />
+    <Etapas />
+    <ParallaxBand alt={parallax.alt1} />
+    <Cuaderno />
+    <Autora />
+    <Libertad />
+    <Resenas />
+    <Faq />
+    <Contacto />
+    <ParallaxBand alt={parallax.alt2} />
+    <LibertadCierre />
+  </main>
+  <SiteFooter />
+</Base>

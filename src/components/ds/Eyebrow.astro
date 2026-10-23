@@ -1,0 +1,22 @@
+---
+/* Antetítulo en versalitas (de Eyebrow.jsx). Con `rules` añade filetes a ambos lados. */
+interface Props { rules?: boolean; align?: "left" | "center" | "right"; class?: string }
+const { rules = false, align = "center", class: className } = Astro.props;
+---
+<div class:list={["es-eyebrow", { rules }, className]} style={`text-align:${align}`}>
+  {rules && <span class="rule" aria-hidden="true"></span>}<slot />{rules && <span class="rule" aria-hidden="true"></span>}
+</div>
+
+<style>
+  .es-eyebrow {
+    font-family: var(--font-ui);
+    font-size: var(--type-eyebrow);
+    font-weight: 400;
+    letter-spacing: var(--track-eyebrow);
+    text-transform: uppercase;
+    color: var(--accent-primary);
+    opacity: .85;
+  }
+  .es-eyebrow.rules { letter-spacing: var(--track-hero-eyebrow); }
+  .rule { display: inline-block; width: 40px; height: 1px; background: var(--accent-primary); opacity: .5; vertical-align: middle; margin: 0 20px; }
+</style>
