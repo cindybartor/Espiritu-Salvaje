@@ -47,7 +47,7 @@ export const nota = {
   eyebrow: "Nota de la autora",
   titleLines: [{ text: "Escribí esto antes de saber" }, { text: "que era un libro." }],
   paragraphsHtml: [
-    "Empecé a escribir en mi diario a los diez años, el cual siempre escondía. A los doce años, las poesías que aparecen en este libro. No pensaba en publicar nada: escribía para entender lo que sentía, para desahogarme de alguna manera.",
+    "Empecé a escribir en mi diario a los diez años, el cual siempre escondía. A los diez años, las poesías que aparecen en este libro. No pensaba en publicar nada: escribía para entender lo que sentía, para desahogarme de alguna manera.",
     "Treinta y cinco años después, esos cuadernos se han transformado en este libro. No he querido corregir a la niña que fui, ni suavizar a la mujer en la que me convertí después. <em>Lo he dejado todo tal como lo escribí en su día.</em>",
     "Si algo de lo que hay aquí te sirve para nombrar lo que te ocurre a ti, entonces ya ha valido la pena.",
   ],
@@ -59,7 +59,7 @@ export const libro = {
   titleLines: [{ text: "Una vida entre" }, { text: "dos tapas.", accent: true }],
   coverAlt: "Ejemplar en tapa dura del libro Espíritu Salvaje de Mari Carmen Pacheco Picazo",
   paragraphsHtml: [
-    "<strong>Espíritu Salvaje</strong> es, sobre todo, un viaje sentido, contado a través de palabras. Atraviesa pérdidas, amores intensos, caos, adicción, dependencia emocional, depresión y la noche oscura del alma, hasta llegar a una mujer reconstruida que ha renacido.",
+    "<strong>Espíritu Salvaje</strong> es un viaje de 35 años, sobre todo, sentido, pero contado a través de palabras. Empieza con una niña de 10 años que escribe poesías para expresar lo que siente, y termina con una mujer reconstruida que ha renacido después de atravesar pérdidas, amores intensos, caos, adicción, dependencia emocional, depresión y la noche oscura del alma.",
     "Son textos que evolucionan contigo: la inocencia, la pasión, el error, la caída, el duelo y, finalmente, la reconstrucción. <em>Romperte por completo para construirte de nuevo.</em>",
     "Una historia real, sincera, imperfecta y profundamente humana.",
   ],
@@ -88,7 +88,7 @@ export const etapas = {
       alt: "Carta I del libro Espíritu Salvaje: la niña que escribía para entender",
       label: "I · LA NIÑA",
       title: "La niña que escribía para entender",
-      text: "Poesías escritas a mano, a los doce años, para poner nombre a lo que todavía no se entiende: el primer amor, el miedo, las dudas, el cuerpo cambiando.",
+      text: "Poesías escritas a mano, a los diez años, para poner nombre a lo que todavía no se entiende: el primer amor, el miedo, las dudas, el cuerpo cambiando.",
     },
     {
       image: "carta-caida",

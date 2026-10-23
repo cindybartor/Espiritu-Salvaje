@@ -31,7 +31,7 @@ export const bookJsonLd = {
   url: `${SITE_URL}/`,
   image: `${SITE_URL}/uploads/cover-hero-v5.png`,
   description:
-    "Treinta y cinco años de cuadernos personales convertidos en un libro de poemas y reflexiones. El viaje de la niña que escribía a los doce años hasta el renacer de la mujer adulta.",
+    "Treinta y cinco años de cuadernos personales convertidos en un libro de poemas y reflexiones. El viaje de la niña que escribía a los diez años hasta el renacer de la mujer adulta.",
   isbn: "979-8272706386",
   bookFormat: "https://schema.org/Paperback",
   inLanguage: "es",
