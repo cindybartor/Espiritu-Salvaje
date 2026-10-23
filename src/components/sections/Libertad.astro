@@ -25,7 +25,7 @@ const words = libertad.text.split(" ");
   .content { position: relative; z-index: 1; max-width: 860px; display: flex; flex-direction: column; gap: clamp(28px, 4vw, 44px); text-align: center; }
   p {
     margin: 0; font-family: var(--font-display); font-weight: 300; font-style: italic;
-    font-size: clamp(26px, 2.6vw, 34px); line-height: 1.5; color: var(--text-heading);
+    font-size: var(--type-quote); line-height: var(--lh-quote); color: var(--text-heading);
     text-wrap: pretty; text-shadow: 0 2px 18px rgba(0, 0, 0, .7);
   }
   [data-word] { opacity: 0; transition: opacity .5s ease; }

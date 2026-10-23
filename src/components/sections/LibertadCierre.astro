@@ -20,8 +20,8 @@ const w2 = c.text2.split(" ");
   }
   .content { max-width: 860px; display: flex; flex-direction: column; gap: clamp(28px, 4vw, 44px); text-align: center; }
   p { margin: 0; font-family: var(--font-display); font-weight: 300; text-shadow: 0 2px 18px rgba(0, 0, 0, .7); }
-  .p1 { font-style: italic; font-size: clamp(22px, 2.1vw, 28px); line-height: 1.6; color: var(--text-heading); text-wrap: pretty; }
-  .p2 { font-size: clamp(26px, 2.6vw, 34px); line-height: 1.4; color: var(--accent-primary); text-wrap: balance; }
+  .p1 { font-style: italic; font-size: var(--type-lede); line-height: var(--lh-lede); color: var(--text-heading); text-wrap: pretty; }
+  .p2 { font-size: var(--type-quote); line-height: 1.4; color: var(--accent-primary); text-wrap: balance; }
   [data-word] { opacity: 0; transition: opacity .5s ease; }
   :global(html:not(.js)) [data-word], [data-word].on { opacity: 1; }
 </style>

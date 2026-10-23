@@ -34,7 +34,7 @@ const { doc } = Astro.props;
   .body { display: flex; flex-direction: column; gap: clamp(32px, 4vw, 48px); }
   h2 {
     margin: 0 0 var(--space-3); font-family: var(--font-display); font-weight: 300; font-style: italic;
-    font-size: clamp(24px, 2.4vw, 30px); line-height: 1.4; color: var(--accent-primary);
+    font-size: var(--type-lede-lg); line-height: var(--lh-lede-lg); color: var(--accent-primary);
   }
   p { margin: 0 0 var(--space-4); font-family: var(--font-ui); font-weight: 300; font-size: var(--type-body); line-height: var(--lh-body); color: var(--text-body); text-wrap: pretty; }
   p:last-child { margin-bottom: 0; }

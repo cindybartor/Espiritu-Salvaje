@@ -193,18 +193,18 @@ const BEADS = [
   h1 {
     margin: 0 0 clamp(10px, 1.4vw, 16px); max-width: 30ch;
     font-family: var(--font-display); font-weight: 300; font-style: italic;
-    font-size: clamp(22px, 2.1vw, 28px); line-height: 1.5;
+    font-size: var(--type-lede); line-height: var(--lh-lede);
     color: var(--text-heading); opacity: .9; text-wrap: pretty;
   }
   .lede {
     margin: 0 0 clamp(20px, 2.8vw, 30px); max-width: 46ch;
     font-family: var(--font-display); font-weight: 300; font-style: italic;
-    font-size: clamp(19px, 1.6vw, 25px); line-height: 1.7;
+    font-size: var(--type-lede-sm); line-height: var(--lh-lede-sm);
     color: var(--text-body); text-wrap: pretty;
   }
   .formats {
     margin-top: clamp(22px, 3vw, 34px); display: flex; flex-direction: column; gap: 8px;
-    font-size: 13px; letter-spacing: .27em; color: var(--text-muted); text-transform: uppercase;
+    font-size: var(--type-label); letter-spacing: var(--track-label); color: var(--text-muted); text-transform: uppercase;
   }
   .kindle { color: var(--accent-primary); opacity: .85; }
 
@@ -216,7 +216,7 @@ const BEADS = [
 
   .hint {
     position: absolute; bottom: 32px; left: 50%; z-index: 10;
-    color: var(--accent-primary); font-size: 12px; letter-spacing: .4em; text-transform: uppercase;
+    color: var(--accent-primary); font-size: var(--type-label); letter-spacing: var(--track-label); text-transform: uppercase;
     white-space: nowrap; opacity: .85; animation: esFadeUpDown 3s ease-in-out infinite;
   }
   @media (prefers-reduced-motion: reduce) { .cover, .logo-fx * { animation: none !important; } }
