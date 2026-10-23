@@ -4,6 +4,9 @@
 export const SITE_URL = "https://espiritusalvaje.es";
 export const AMAZON_URL = "https://amzn.eu/d/0dynUTLq";
 export const INSTAGRAM_URL = "https://www.instagram.com/libroespiritusalvaje/";
+export const FACEBOOK_URL = "https://www.facebook.com/IndiaSalvaje/";
+export const YOUTUBE_URL = "https://www.youtube.com/@IndiaSelva";
+export const LINKEDIN_URL = "https://www.linkedin.com/in/mari-carmen-pacheco-espiritusalvaje/";
 
 export const author = {
   name: "Mari Carmen Pacheco Picazo",
@@ -67,6 +70,9 @@ export const footer = {
   author: author.fullName,
   links: [
     { label: "Instagram", href: INSTAGRAM_URL },
+    { label: "Facebook", href: FACEBOOK_URL },
+    { label: "YouTube", href: YOUTUBE_URL },
+    { label: "LinkedIn", href: LINKEDIN_URL },
     { label: "Contacto", href: "/#contacto" },
     { label: "Comprar", href: AMAZON_URL },
     { label: "Aviso legal", href: "/aviso-legal" },

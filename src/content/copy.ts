@@ -24,8 +24,8 @@ export const hero = {
 export const comprar = {
   titleLines: [
     { text: "Hay libros que se leen." },
-    { text: "Y hay libros en los que" },
-    { text: "te ves reflejada.", accent: true },
+    { text: "Y hay libros que te muestran un espejo," },
+    { text: "en los que te reflejas e identificas.", accent: true },
   ],
   subtitle: "Espíritu Salvaje pertenece al segundo grupo.",
   quote: "Hace falta tocar fondo para subir con más impulso.",
@@ -81,7 +81,7 @@ export const paraquien = {
 export const etapas = {
   eyebrow: "Cómo está construido",
   titleLines: [{ text: "Tres etapas, tres voces." }],
-  text: "El libro no se ordena por temas, sino por edades. La voz que escribe cambia con los años y se oye cambiar.",
+  text: "El libro no se ordena por temas, sino por edades. La voz que escribe cambia con los años y se siente evolucionar.",
   cards: [
     {
       image: "carta-nina",

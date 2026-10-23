@@ -8,7 +8,7 @@ import "@fontsource/inter/400.css";
 import "@fontsource/inter/500.css";
 import "@fontsource/inter/600.css";
 import "../styles/global.css";
-import { SITE_URL, AMAZON_URL, INSTAGRAM_URL, seo, bookJsonLd, author } from "../content/site";
+import { SITE_URL, AMAZON_URL, INSTAGRAM_URL, FACEBOOK_URL, YOUTUBE_URL, LINKEDIN_URL, seo, bookJsonLd, author } from "../content/site";
 import { faq, resenas } from "../content/copy";
 
 interface Props {
@@ -30,7 +30,7 @@ const personJsonLd = {
   url: `${SITE_URL}/#autora`,
   image: `${SITE_URL}${author.photo}`,
   jobTitle: "Escritora",
-  sameAs: [INSTAGRAM_URL, AMAZON_URL],
+  sameAs: [INSTAGRAM_URL, FACEBOOK_URL, YOUTUBE_URL, LINKEDIN_URL, AMAZON_URL],
 };
 
 const stripHtml = (s: string) => s.replace(/<br\s*\/?>/g, " ").replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
