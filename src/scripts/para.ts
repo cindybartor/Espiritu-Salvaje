@@ -3,7 +3,7 @@
    conserva su scroll nativo: nada captura la rueda ni el tacto.
    Las frases siempre pasan en orden: si el scroll salta más de una zona (Av Pág, barra
    espaciadora, un arrastre rápido), las intermedias se muestran un instante cada una. */
-const STEP_MS = 420;
+const STEP_MS = 900; // tiempo mínimo que cada frase queda visible
 
 export function initPara(reduce: boolean) {
   const root = document.querySelector<HTMLElement>("[data-para]");
