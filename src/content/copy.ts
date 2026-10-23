@@ -167,7 +167,7 @@ export const libertad = {
 
 export const resenas = {
   eyebrow: "5 estrellas en Amazon",
-  titleLines: [{ text: "Quien lo lee, se reconoce." }, { text: "Cinco estrellas en Amazon." }],
+  titleLines: [{ text: "Quien lo lee, se identifica." }, { text: "Cinco estrellas en Amazon." }],
   starsLabel: "5 estrellas",
   items: [
     {
