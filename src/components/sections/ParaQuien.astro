@@ -1,43 +1,154 @@
 ---
-/* #paraquien: "Este libro es para ti si…". Con JS el bloque se fija (sticky) y muestra
-   una frase cada vez con puntos indicadores (src/scripts/para.ts). Sin JS o con
-   movimiento reducido es una lista apilada. */
+/* #paraquien: "Este libro es para ti si…" como carta lacrada. Al entrar en pantalla, un papel
+   rojo sangre con el borde rasgado se desliza desde la izquierda; las cinco frases se
+   "escriben" una a una (Renaissance, como tinta de pluma) y, al terminar, cae el sello de
+   cera dorado con el monograma de la águila. A la derecha, una placa con el logotipo en
+   vertical. Todo ocurre una sola vez (src/scripts/carta.ts); sin JavaScript o con
+   movimiento reducido se ve el estado final. */
+import { Image } from "astro:assets";
 import Section from "../ds/Section.astro";
 import Eyebrow from "../ds/Eyebrow.astro";
 import SectionTitle from "../ds/SectionTitle.astro";
+import Monogram from "../ds/Monogram.astro";
 import { paraquien } from "../../content/copy";
+import { nav } from "../../content/site";
+import logo from "../../assets/uploads/logo-navbar-v2.png";
+
+const LINE_MS = 1500; // duración de la escritura de cada frase
+const PAPER_MS = 900; // entrada del papel
+const sealDelay = PAPER_MS + paraquien.items.length * LINE_MS + 200;
 ---
-<Section id="paraquien" tone="page" align="center" maxWidth="var(--measure-quote)">
-  <div class="root" data-para>
-    <div class="sticky" data-para-sticky>
-      <Eyebrow>{paraquien.eyebrow}</Eyebrow>
-      <div class="title">
-        <SectionTitle level={2} size="display-2" italic align="center">{paraquien.title}</SectionTitle>
-      </div>
-      <div class="stage">
-        <ul class="list" data-para-list>
-          {paraquien.items.map((t) => <li data-para-item>{t}</li>)}
-        </ul>
-        <div class="dots" data-para-dots aria-hidden="true">
-          {paraquien.items.map(() => <span data-para-dot></span>)}
+<Section id="paraquien" tone="night" align="center">
+  <div class="block" data-reveal="block">
+    <Eyebrow>{paraquien.eyebrow}</Eyebrow>
+    <SectionTitle level={2} size="display-2" italic align="center">{paraquien.title}</SectionTitle>
+
+    <div class="scene" data-carta style={`--paper-ms:${PAPER_MS}ms;--line-ms:${LINE_MS}ms;--seal-delay:${sealDelay}ms`}>
+      <div class="paper">
+        <div class="paper-inner">
+          <ul class="lines">
+            {paraquien.items.map((t, i) => (
+              <li style={`--i:${i};--n:${t.length}`}><span class="ink">{t}</span></li>
+            ))}
+          </ul>
         </div>
+        <div class="seal" aria-hidden="true">
+          <img src="/ornaments/seal.webp" alt="" width="600" height="600" loading="lazy" decoding="async" />
+          <Monogram class="mono" size="46%" opacity={0.9} />
+          <span class="drip"></span>
+        </div>
+      </div>
+      <div class="plaque" aria-hidden="true">
+        <Image src={logo} alt={nav.logoAlt} width={260} densities={[1, 2]} format="webp" loading="lazy" class="plaque-logo" />
       </div>
     </div>
   </div>
 </Section>
 
 <style>
-  .root { position: relative; }
-  .sticky { display: flex; flex-direction: column; justify-content: center; gap: var(--space-7); }
-  .title { margin-bottom: clamp(16px, 3vw, 36px); }
-  .stage { position: relative; display: flex; align-items: center; justify-content: center; gap: clamp(20px, 4vw, 56px); }
-  .list { list-style: none; margin: 0; padding: 0; width: 100%; display: flex; flex-direction: column; gap: var(--space-6); }
-  .list li {
-    font-family: var(--font-display); font-weight: 300; font-style: italic;
-    font-size: clamp(24px, 3.4vw, 44px); line-height: 1.34; color: var(--text-heading);
-    text-wrap: pretty;
-    transition: opacity .25s ease, transform .3s cubic-bezier(.22, .78, .2, 1);
+  .block { display: flex; flex-direction: column; align-items: center; gap: clamp(28px, 4vw, 48px); }
+
+  .scene {
+    position: relative; width: 100%; max-width: 1180px;
+    display: grid; grid-template-columns: minmax(0, 1fr) clamp(72px, 9vw, 110px);
+    align-items: stretch; gap: clamp(16px, 3vw, 40px);
+    margin-top: clamp(8px, 2vw, 24px);
   }
-  .dots { display: none; flex-direction: column; gap: 12px; flex: 0 0 auto; }
-  .dots span { display: block; width: 7px; height: 7px; border-radius: 50%; background: var(--accent-primary); transition: opacity .4s ease, transform .4s ease; }
+
+  /* --- papel rojo con borde rasgado --- */
+  .paper {
+    position: relative; min-height: clamp(380px, 48vw, 560px);
+    background:
+      radial-gradient(ellipse 80% 70% at 30% 40%, rgba(139, 24, 16, .55) 0%, transparent 70%),
+      linear-gradient(135deg, #6B0A08 0%, #570503 55%, #3f0302 100%);
+    clip-path: polygon(0 0, 91% 0, 93.8% 1.5%, 92.6% 4%, 95.2% 5.5%, 93.4% 9%, 94.1% 12.5%, 96.6% 14%, 94.4% 18%, 95.3% 22.5%, 93.2% 25%, 96.9% 28%, 95.1% 33%, 97.4% 35.5%, 94.8% 40%, 96% 44%, 93.9% 46.5%, 97.2% 50%, 95.6% 54.5%, 98% 57%, 95.4% 61%, 96.7% 65.5%, 94.2% 68%, 97% 72%, 95% 76.5%, 96.4% 80%, 93.6% 83%, 95.9% 87%, 94.4% 91%, 96.1% 94%, 93.1% 96.5%, 94.6% 100%, 0 100%);
+    filter: drop-shadow(0 30px 60px rgba(0, 0, 0, .55));
+    transform: translateX(-118%) rotate(-3deg);
+    opacity: 0;
+    transition: transform var(--paper-ms) cubic-bezier(.22, .78, .2, 1), opacity calc(var(--paper-ms) * .6) ease;
+  }
+  .paper::before { /* grano del papel */
+    content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .18; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .6 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+  .paper-inner {
+    position: relative; z-index: 1;
+    padding: clamp(40px, 6vw, 80px) clamp(28px, 10vw, 140px) clamp(100px, 14vw, 160px) clamp(28px, 6vw, 80px);
+    text-align: left;
+  }
+
+  /* --- frases: tinta que se escribe --- */
+  .lines { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: clamp(14px, 2vw, 22px); }
+  .lines li { margin: 0; }
+  .ink {
+    display: inline-block; max-width: 100%;
+    font-family: var(--font-ornament); font-weight: 400;
+    font-size: clamp(21px, 2.5vw, 33px); line-height: 1.45; color: var(--cream-100);
+    text-shadow: 0 1px 0 rgba(0, 0, 0, .35), 0 0 18px rgba(253, 243, 208, .12);
+    clip-path: inset(-.2em 100% -.35em 0);
+    transition: clip-path var(--line-ms) steps(var(--n, 40)) calc(var(--paper-ms) + var(--i) * var(--line-ms));
+  }
+
+  /* --- sello de cera dorado --- */
+  .seal {
+    position: absolute; z-index: 2;
+    right: clamp(6%, 9vw, 12%); bottom: clamp(-26px, -3vw, -40px);
+    width: clamp(110px, 15vw, 170px); aspect-ratio: 1;
+    opacity: 0; transform: scale(1.5) rotate(-12deg); filter: blur(6px);
+    transition: opacity .45s ease var(--seal-delay), transform .7s cubic-bezier(.2, 1.2, .3, 1) var(--seal-delay), filter .5s ease var(--seal-delay);
+  }
+  .seal img { display: block; width: 100%; height: auto; filter: drop-shadow(0 10px 22px rgba(0, 0, 0, .55)); }
+  .seal :global(.mono) { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -52%); color: #5C3E20; mix-blend-mode: multiply; filter: drop-shadow(0 1px 0 rgba(255, 230, 170, .35)); }
+  .seal::after { /* calor: un brillo que pulsa una vez al caer */
+    content: ""; position: absolute; inset: -30%; border-radius: 50%; pointer-events: none; opacity: 0;
+    background: radial-gradient(circle, rgba(255, 190, 90, .55) 0%, rgba(214, 120, 40, .25) 35%, transparent 70%);
+  }
+  .drip { /* gota de cera que escurre y se enfría */
+    position: absolute; left: 44%; bottom: -6%; width: 12%; height: 0; border-radius: 0 0 50% 50%;
+    background: linear-gradient(180deg, #D9B46A 0%, #B8893E 100%); opacity: 0; transform-origin: top;
+  }
+
+  /* --- placa lateral con el logotipo en vertical --- */
+  .plaque {
+    position: relative; align-self: center; height: clamp(300px, 36vw, 440px);
+    display: grid; place-items: center;
+    background: linear-gradient(180deg, #6B0A08 0%, #570503 100%);
+    border: 1px solid rgba(225, 197, 135, .45);
+    border-radius: 999px 999px 999px 999px / 40px 40px 40px 40px;
+    box-shadow: inset 0 0 0 5px #4a0302, inset 0 0 0 6px rgba(225, 197, 135, .35), 0 20px 50px rgba(0, 0, 0, .5);
+    opacity: 0; transform: translateX(40px);
+    transition: opacity .8s ease calc(var(--paper-ms) * .5), transform .9s cubic-bezier(.22, .78, .2, 1) calc(var(--paper-ms) * .5);
+  }
+  .plaque::before, .plaque::after { content: "·"; position: absolute; left: 50%; transform: translateX(-50%); color: var(--accent-primary); font-size: 22px; line-height: 1; }
+  .plaque::before { top: 18px; }
+  .plaque::after { bottom: 18px; }
+  .plaque-logo { position: absolute; left: 50%; top: 50%; width: auto; height: clamp(40px, 5vw, 58px); max-width: none; transform: translate(-50%, -50%) rotate(90deg); }
+
+  /* --- estado final (JS añade .in; sin JS o con movimiento reducido, directo) --- */
+  .scene.in .paper, :global(html:not(.js)) .paper { transform: none; opacity: 1; }
+  .scene.in .ink, :global(html:not(.js)) .ink { clip-path: inset(-.2em -.3em -.35em 0); }
+  .scene.in .seal, :global(html:not(.js)) .seal { opacity: 1; transform: scale(1) rotate(-8deg); filter: blur(0); }
+  .scene.in .seal::after { animation: esSealHeat 1.6s ease-out var(--seal-delay) both; }
+  .scene.in .drip { animation: esSealDrip 1.4s cubic-bezier(.3, .7, .4, 1) calc(var(--seal-delay) + .35s) both; }
+  .scene.in .plaque, :global(html:not(.js)) .plaque { opacity: 1; transform: none; }
+  @keyframes esSealHeat { 0% { opacity: 0; } 25% { opacity: 1; } 100% { opacity: 0; } }
+  @keyframes esSealDrip { 0% { opacity: 0; height: 0; } 20% { opacity: .95; } 100% { opacity: .9; height: 22%; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .paper, .ink, .seal, .plaque { transition: none; }
+    .paper { transform: none; opacity: 1; }
+    .ink { clip-path: inset(-.2em -.3em -.35em 0); }
+    .seal { opacity: 1; transform: scale(1) rotate(-8deg); filter: none; }
+    .plaque { opacity: 1; transform: none; }
+  }
+
+  @media (max-width: 700px) {
+    .scene { grid-template-columns: 1fr; gap: 20px; }
+    .paper-inner { padding: 32px 34px 110px 22px; }
+    .seal { right: 6%; bottom: -14px; width: 104px; }
+    .plaque { height: 64px; width: min(100%, 360px); justify-self: center; border-radius: 40px; }
+    .plaque::before { top: 50%; left: 16px; transform: translateY(-55%); }
+    .plaque::after { bottom: auto; top: 50%; left: auto; right: 16px; transform: translateY(-55%); }
+    .plaque-logo { transform: translate(-50%, -50%); height: 28px; }
+  }
 </style>

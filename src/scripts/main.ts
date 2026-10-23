@@ -5,9 +5,9 @@ import { initVideos } from "./videos";
 import { initReveals } from "./reveals";
 import { initWords } from "./words";
 import { initDeal } from "./deal";
-import { initPara } from "./para";
 import { initTrail } from "./trail";
 import { initContact } from "./contact";
+import { initCarta } from "./carta";
 
 const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -16,6 +16,6 @@ initVideos();
 initReveals(reduce);
 initWords(reduce);
 initDeal(reduce);
-initPara(reduce);
 initTrail(reduce);
 initContact();
+initCarta(reduce);
