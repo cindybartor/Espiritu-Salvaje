@@ -72,14 +72,14 @@ const CARTELA = shape(cartelaSvg);
 
   .scene {
     position: relative; width: 100%; max-width: 1180px;
-    display: grid; grid-template-columns: minmax(0, 1fr) clamp(72px, 9vw, 110px);
+    display: grid; grid-template-columns: minmax(0, 1fr) clamp(58px, 7vw, 82px);
     align-items: stretch; gap: clamp(16px, 3vw, 40px);
     margin-top: clamp(8px, 2vw, 24px);
   }
 
   /* --- papel rojo con borde rasgado --- */
   .paper-wrap {
-    position: relative;
+    position: relative; width: 170%; margin-left: -70%;
     filter: drop-shadow(0 30px 60px rgba(0, 0, 0, .55));
     transform: translateX(-118%) rotate(-3deg);
     opacity: 0;
@@ -98,7 +98,7 @@ const CARTELA = shape(cartelaSvg);
   }
   .paper-inner {
     position: relative; z-index: 1;
-    padding: 9% 12% 9% 9%;
+    padding: 8% 13% 8% 44%;
     text-align: left;
   }
 
@@ -117,8 +117,8 @@ const CARTELA = shape(cartelaSvg);
   /* --- sello de cera dorado --- */
   .seal {
     position: absolute; z-index: 2;
-    left: 97%; top: 50%; margin-left: calc(-1 * var(--seal, clamp(120px, 15vw, 180px)) / 2);
-    width: var(--seal, clamp(120px, 15vw, 180px)); aspect-ratio: 1;
+    left: 97.5%; top: 50%; margin-left: calc(-1 * var(--seal, clamp(84px, 9vw, 116px)) / 2);
+    width: var(--seal, clamp(84px, 9vw, 116px)); aspect-ratio: 1;
     opacity: 0; transform: translateY(-50%) scale(1.5) rotate(-12deg); filter: blur(6px);
     transition: opacity .45s ease var(--seal-delay), transform .7s cubic-bezier(.2, 1.2, .3, 1) var(--seal-delay), filter .5s ease var(--seal-delay);
   }
@@ -135,7 +135,7 @@ const CARTELA = shape(cartelaSvg);
 
   /* --- placa lateral con el logotipo en vertical --- */
   .plaque-wrap {
-    position: relative; align-self: center; width: 100%; aspect-ratio: 0.25; max-height: 520px;
+    position: relative; align-self: center; width: 100%; aspect-ratio: 0.25; max-height: 330px;
     filter: drop-shadow(0 20px 50px rgba(0, 0, 0, .5));
     opacity: 0; transform: translateX(40px);
     transition: opacity .8s ease calc(var(--paper-ms) * .5), transform .9s cubic-bezier(.22, .78, .2, 1) calc(var(--paper-ms) * .5);
@@ -146,9 +146,9 @@ const CARTELA = shape(cartelaSvg);
     clip-path: url(#carta-cartela-v);
   }
   .plaque::before, .plaque::after { content: "·"; position: absolute; left: 50%; transform: translateX(-50%); color: var(--accent-primary); font-size: 22px; line-height: 1; }
-  .plaque::before { top: 22px; }
-  .plaque::after { bottom: 22px; }
-  .plaque-logo { position: absolute; left: 50%; top: 50%; width: auto; height: clamp(40px, 5vw, 58px); max-width: none; transform: translate(-50%, -50%) rotate(90deg); }
+  .plaque::before { top: 16px; }
+  .plaque::after { bottom: 16px; }
+  .plaque-logo { position: absolute; left: 50%; top: 50%; width: auto; height: clamp(28px, 3.4vw, 40px); max-width: none; transform: translate(-50%, -50%) rotate(90deg); }
 
   /* --- estado final (JS añade .in; sin JS o con movimiento reducido, directo) --- */
   .scene.in .paper-wrap, :global(html:not(.js)) .paper-wrap { transform: none; opacity: 1; }
@@ -172,14 +172,14 @@ const CARTELA = shape(cartelaSvg);
     .scene { grid-template-columns: 1fr; gap: 34px; }
     .paper { aspect-ratio: auto; min-height: 0; }
     .paper-wrap { transform: translateX(-108%) rotate(-2deg); }
-    .paper-inner { padding: 64px 16% 136px 13%; }
+    .paper-inner { padding: 40px 12% 96px 43%; }
     .lines { gap: 18px; }
     .ink { font-size: clamp(18px, 5vw, 22px); line-height: 1.38; }
-    .seal { --seal: 92px; left: 84%; top: 88%; }
-    .plaque-wrap { width: min(100%, 320px); aspect-ratio: 4; max-height: none; justify-self: center; margin-right: var(--px); }
+    .seal { --seal: 72px; left: 90%; top: 86%; }
+    .plaque-wrap { width: min(100%, 240px); margin-left: 0; aspect-ratio: 4; max-height: none; justify-self: center; }
     .plaque { clip-path: url(#carta-cartela-h); }
     .plaque::before { top: 50%; left: 22px; transform: translateY(-55%); }
     .plaque::after { bottom: auto; top: 50%; left: auto; right: 22px; transform: translateY(-55%); }
-    .plaque-logo { transform: translate(-50%, -50%); height: 26px; }
+    .plaque-logo { transform: translate(-50%, -50%); height: 20px; }
   }
 </style>
