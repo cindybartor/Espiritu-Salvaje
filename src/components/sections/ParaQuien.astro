@@ -17,13 +17,30 @@ import logo from "../../assets/uploads/logo-navbar-v2.png";
 const LINE_MS = 1500; // duración de la escritura de cada frase
 const PAPER_MS = 900; // entrada del papel
 const sealDelay = PAPER_MS + paraquien.items.length * LINE_MS + 200;
+
+/* Silueta del papel: borde derecho con lóbulos irregulares (como papel quemado o rasgado),
+   en coordenadas 0..1 para que la máscara se adapte a cualquier tamaño. */
+const TORN = [
+  "M0,0 L0.56,0",
+  "C0.64,0 0.69,0.03 0.69,0.09",
+  "C0.69,0.14 0.64,0.17 0.67,0.22",
+  "C0.71,0.27 0.80,0.27 0.85,0.33",
+  "C0.92,0.40 0.995,0.42 0.995,0.52",
+  "C0.995,0.62 0.90,0.64 0.87,0.70",
+  "C0.83,0.76 0.90,0.81 0.86,0.86",
+  "C0.82,0.91 0.73,0.90 0.71,0.94",
+  "C0.69,0.98 0.65,1 0.58,1",
+  "L0,1 Z",
+].join(" ");
 ---
 <Section id="paraquien" tone="night" align="center">
   <div class="block" data-reveal="block">
     <Eyebrow>{paraquien.eyebrow}</Eyebrow>
     <SectionTitle level={2} size="display-2" italic align="center">{paraquien.title}</SectionTitle>
 
+    <svg width="0" height="0" aria-hidden="true" style="position:absolute"><defs><clipPath id="carta-rasgada" clipPathUnits="objectBoundingBox"><path d={TORN} /></clipPath></defs></svg>
     <div class="scene" data-carta style={`--paper-ms:${PAPER_MS}ms;--line-ms:${LINE_MS}ms;--seal-delay:${sealDelay}ms`}>
+      <div class="paper-wrap">
       <div class="paper">
         <div class="paper-inner">
           <ul class="lines">
@@ -32,6 +49,7 @@ const sealDelay = PAPER_MS + paraquien.items.length * LINE_MS + 200;
             ))}
           </ul>
         </div>
+      </div>
         <div class="seal" aria-hidden="true">
           <img src="/ornaments/seal.webp" alt="" width="600" height="600" loading="lazy" decoding="async" />
           <Monogram class="mono" size="46%" opacity={0.9} />
@@ -56,16 +74,19 @@ const sealDelay = PAPER_MS + paraquien.items.length * LINE_MS + 200;
   }
 
   /* --- papel rojo con borde rasgado --- */
+  .paper-wrap {
+    position: relative;
+    filter: drop-shadow(0 30px 60px rgba(0, 0, 0, .55));
+    transform: translateX(-118%) rotate(-3deg);
+    opacity: 0;
+    transition: transform var(--paper-ms) cubic-bezier(.22, .78, .2, 1), opacity calc(var(--paper-ms) * .6) ease;
+  }
   .paper {
     position: relative; min-height: clamp(380px, 48vw, 560px);
     background:
       radial-gradient(ellipse 80% 70% at 30% 40%, rgba(139, 24, 16, .55) 0%, transparent 70%),
       linear-gradient(135deg, #6B0A08 0%, #570503 55%, #3f0302 100%);
-    clip-path: polygon(0 0, 91% 0, 93.8% 1.5%, 92.6% 4%, 95.2% 5.5%, 93.4% 9%, 94.1% 12.5%, 96.6% 14%, 94.4% 18%, 95.3% 22.5%, 93.2% 25%, 96.9% 28%, 95.1% 33%, 97.4% 35.5%, 94.8% 40%, 96% 44%, 93.9% 46.5%, 97.2% 50%, 95.6% 54.5%, 98% 57%, 95.4% 61%, 96.7% 65.5%, 94.2% 68%, 97% 72%, 95% 76.5%, 96.4% 80%, 93.6% 83%, 95.9% 87%, 94.4% 91%, 96.1% 94%, 93.1% 96.5%, 94.6% 100%, 0 100%);
-    filter: drop-shadow(0 30px 60px rgba(0, 0, 0, .55));
-    transform: translateX(-118%) rotate(-3deg);
-    opacity: 0;
-    transition: transform var(--paper-ms) cubic-bezier(.22, .78, .2, 1), opacity calc(var(--paper-ms) * .6) ease;
+    clip-path: url(#carta-rasgada);
   }
   .paper::before { /* grano del papel */
     content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .18; mix-blend-mode: overlay;
@@ -73,7 +94,7 @@ const sealDelay = PAPER_MS + paraquien.items.length * LINE_MS + 200;
   }
   .paper-inner {
     position: relative; z-index: 1;
-    padding: clamp(40px, 6vw, 80px) clamp(28px, 10vw, 140px) clamp(100px, 14vw, 160px) clamp(28px, 6vw, 80px);
+    padding: clamp(40px, 6vw, 80px) 36% clamp(110px, 14vw, 170px) clamp(28px, 6vw, 80px);
     text-align: left;
   }
 
@@ -82,9 +103,9 @@ const sealDelay = PAPER_MS + paraquien.items.length * LINE_MS + 200;
   .lines li { margin: 0; }
   .ink {
     display: inline-block; max-width: 100%;
-    font-family: var(--font-ornament); font-weight: 400;
-    font-size: clamp(21px, 2.5vw, 33px); line-height: 1.45; color: var(--cream-100);
-    text-shadow: 0 1px 0 rgba(0, 0, 0, .35), 0 0 18px rgba(253, 243, 208, .12);
+    font-family: var(--font-display); font-weight: 300; font-style: italic;
+    font-size: clamp(22px, 2.4vw, 30px); line-height: 1.4; color: var(--text-heading);
+    text-shadow: 0 1px 0 rgba(0, 0, 0, .3);
     clip-path: inset(-.2em 100% -.35em 0);
     transition: clip-path var(--line-ms) steps(var(--n, 40)) calc(var(--paper-ms) + var(--i) * var(--line-ms));
   }
@@ -92,7 +113,7 @@ const sealDelay = PAPER_MS + paraquien.items.length * LINE_MS + 200;
   /* --- sello de cera dorado --- */
   .seal {
     position: absolute; z-index: 2;
-    right: clamp(6%, 9vw, 12%); bottom: clamp(-26px, -3vw, -40px);
+    right: clamp(14%, 18vw, 22%); bottom: clamp(-26px, -3vw, -40px);
     width: clamp(110px, 15vw, 170px); aspect-ratio: 1;
     opacity: 0; transform: scale(1.5) rotate(-12deg); filter: blur(6px);
     transition: opacity .45s ease var(--seal-delay), transform .7s cubic-bezier(.2, 1.2, .3, 1) var(--seal-delay), filter .5s ease var(--seal-delay);
@@ -125,7 +146,7 @@ const sealDelay = PAPER_MS + paraquien.items.length * LINE_MS + 200;
   .plaque-logo { position: absolute; left: 50%; top: 50%; width: auto; height: clamp(40px, 5vw, 58px); max-width: none; transform: translate(-50%, -50%) rotate(90deg); }
 
   /* --- estado final (JS añade .in; sin JS o con movimiento reducido, directo) --- */
-  .scene.in .paper, :global(html:not(.js)) .paper { transform: none; opacity: 1; }
+  .scene.in .paper-wrap, :global(html:not(.js)) .paper-wrap { transform: none; opacity: 1; }
   .scene.in .ink, :global(html:not(.js)) .ink { clip-path: inset(-.2em -.3em -.35em 0); }
   .scene.in .seal, :global(html:not(.js)) .seal { opacity: 1; transform: scale(1) rotate(-8deg); filter: blur(0); }
   .scene.in .seal::after { animation: esSealHeat 1.6s ease-out var(--seal-delay) both; }
@@ -135,20 +156,24 @@ const sealDelay = PAPER_MS + paraquien.items.length * LINE_MS + 200;
   @keyframes esSealDrip { 0% { opacity: 0; height: 0; } 20% { opacity: .95; } 100% { opacity: .9; height: 22%; } }
 
   @media (prefers-reduced-motion: reduce) {
-    .paper, .ink, .seal, .plaque { transition: none; }
-    .paper { transform: none; opacity: 1; }
+    .paper-wrap, .ink, .seal, .plaque { transition: none; }
+    .paper-wrap { transform: none; opacity: 1; }
     .ink { clip-path: inset(-.2em -.3em -.35em 0); }
     .seal { opacity: 1; transform: scale(1) rotate(-8deg); filter: none; }
     .plaque { opacity: 1; transform: none; }
   }
 
   @media (max-width: 700px) {
-    .scene { grid-template-columns: 1fr; gap: 20px; }
-    .paper-inner { padding: 32px 34px 110px 22px; }
-    .seal { right: 6%; bottom: -14px; width: 104px; }
-    .plaque { height: 64px; width: min(100%, 360px); justify-self: center; border-radius: 40px; }
+    .scene { grid-template-columns: 1fr; gap: 34px; margin-left: calc(-1 * var(--px)); width: calc(100% + var(--px)); max-width: none; }
+    .paper { min-height: 0; }
+    .paper-wrap { transform: translateX(-108%) rotate(-2deg); }
+    .paper-inner { padding: 40px 38% 150px 24px; }
+    .lines { gap: 18px; }
+    .ink { font-size: clamp(19px, 5.4vw, 24px); line-height: 1.38; }
+    .seal { right: 12%; bottom: 18px; width: 104px; }
+    .plaque { height: 60px; width: min(100%, 340px); justify-self: center; margin-right: var(--px); border-radius: 40px; }
     .plaque::before { top: 50%; left: 16px; transform: translateY(-55%); }
     .plaque::after { bottom: auto; top: 50%; left: auto; right: 16px; transform: translateY(-55%); }
-    .plaque-logo { transform: translate(-50%, -50%); height: 28px; }
+    .plaque-logo { transform: translate(-50%, -50%); height: 26px; }
   }
 </style>
