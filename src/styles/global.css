@@ -110,3 +110,6 @@ html:not(.js) .es-intro, html:not(.js) .es-trail { display: none !important; }
 }
 /* Fotografías: grado uniforme verde-sepia para que entren en la paleta. */
 .es-grade { filter: sepia(.28) saturate(.72) contrast(1.06) brightness(.88); }
+
+/* Texto solo para lectores de pantalla */
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }

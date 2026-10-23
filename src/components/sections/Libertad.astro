@@ -8,7 +8,7 @@ const words = libertad.text.split(" ");
   <div class="v1" aria-hidden="true"></div>
   <div class="v2" aria-hidden="true"></div>
   <div class="content">
-    <p aria-label={libertad.text}>{words.map((w) => <span aria-hidden="true" data-word>{w + " "}</span>)}</p>
+    <p><span class="sr-only">{libertad.text}</span>{words.map((w) => <span aria-hidden="true" data-word>{w + " "}</span>)}</p>
   </div>
 </section>
 

@@ -7,8 +7,8 @@ const w2 = c.text2.split(" ");
 ---
 <section id="libertad-cierre" class="cierre" data-words data-word-ms={c.wordMs}>
   <div class="content">
-    <p class="p1" aria-label={c.text1}>{w1.map((w) => <span aria-hidden="true" data-word>{w + " "}</span>)}</p>
-    <p class="p2" aria-label={c.text2}>{w2.map((w) => <span aria-hidden="true" data-word>{w + " "}</span>)}</p>
+    <p class="p1"><span class="sr-only">{c.text1}</span>{w1.map((w) => <span aria-hidden="true" data-word>{w + " "}</span>)}</p>
+    <p class="p2"><span class="sr-only">{c.text2}</span>{w2.map((w) => <span aria-hidden="true" data-word>{w + " "}</span>)}</p>
   </div>
 </section>
 
