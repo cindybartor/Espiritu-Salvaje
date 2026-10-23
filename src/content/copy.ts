@@ -47,7 +47,7 @@ export const nota = {
   eyebrow: "Nota de la autora",
   titleLines: [{ text: "Escribí esto antes de saber" }, { text: "que era un libro." }],
   paragraphsHtml: [
-    "Empecé a escribir en mi diario a los diez años, el cual siempre escondía. A los diez años, las poesías que aparecen en este libro. No pensaba en publicar nada: escribía para entender lo que sentía, para desahogarme de alguna manera.",
+    "A los diez años empecé a escribir en mi diario, el cual siempre escondía, y también las poesías que aparecen en este libro. No pensaba en publicar nada: escribía para entender lo que sentía, para desahogarme de alguna manera.",
     "Treinta y cinco años después, esos cuadernos se han transformado en este libro. No he querido corregir a la niña que fui, ni suavizar a la mujer en la que me convertí después. <em>Lo he dejado todo tal como lo escribí en su día.</em>",
     "Si algo de lo que hay aquí te sirve para nombrar lo que te ocurre a ti, entonces ya ha valido la pena.",
   ],
